@@ -1,15 +1,31 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, Image, ActivityIndicator } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useUrl } from '../Context';
-import { AntDesign } from '@expo/vector-icons';
+import {
+  useUrl,
+  useLoadingContext,
+  useHandlePauseContext,
+  useHandlePlayContext,
+  useAudioPlayingContext,
+} from '../Context';
+import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { Button } from 'native-base';
 
 const MusicTabBar = ({ navigation }) => {
   const station: any = useUrl();
+  const loadingAudio: boolean = useLoadingContext();
+  const handlePauseSound: Function = useHandlePauseContext();
+  const handlePlaySound: Function = useHandlePlayContext();
+  const audioPlaying: boolean = useAudioPlayingContext();
 
-  const handleButtonPress = () => {
-    console.log('Press');
+  // console.log(audioPlaying, 'AUDIO PLAYING');
+
+  const handlePausePress = () => {
+    handlePauseSound();
+  };
+
+  const handlePlayPress = () => {
+    handlePlaySound();
   };
 
   return (
@@ -28,9 +44,27 @@ const MusicTabBar = ({ navigation }) => {
             />
             <Text style={styles.stationName}>{station.name}</Text>
           </TouchableOpacity>
-          <Button style={styles.playButton} onPress={handleButtonPress} rounded>
-            <AntDesign name="caretright" size={24} color="black" />
-          </Button>
+          {loadingAudio && (
+            <ActivityIndicator
+              size="large"
+              color="#00ff00"
+              style={styles.playButton}
+            />
+          )}
+          {!audioPlaying && !loadingAudio && (
+            <Button style={styles.playButton} onPress={handlePlayPress} rounded>
+              <AntDesign name="caretright" size={24} color="black" />
+            </Button>
+          )}
+          {audioPlaying && !loadingAudio && (
+            <Button
+              style={styles.playButton}
+              onPress={handlePausePress}
+              rounded
+            >
+              <Ionicons name="pause-sharp" size={24} color="black" />
+            </Button>
+          )}
         </View>
       )}
     </>
@@ -62,12 +96,3 @@ const styles = StyleSheet.create({
 });
 
 export default MusicTabBar;
-
-{
-  /* <Button
-  title="Go somewhere"
-  onPress={() => {
-    navigation.navigate('Player');
-  }}
-/> */
-}

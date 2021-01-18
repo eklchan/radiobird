@@ -18,7 +18,7 @@ const ForYou = () => {
 
   const sortedStations = stationsuk.sort((a, b) => b.votes - a.votes);
 
-  const renderStations = sortedStations.slice(0, 20).map((station, i) => {
+  const renderStations = sortedStations.slice(0, 10).map((station, i) => {
     const [source, setSource] = useState(station.favicon);
 
     const handleError = () => {

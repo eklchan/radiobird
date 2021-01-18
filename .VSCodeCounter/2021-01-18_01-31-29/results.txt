@@ -1,0 +1,57 @@
+Date : 2021-01-18 01:31:29
+Directory : c:\Users\Edward\Desktop\Radio\RadioBird
+Total : 26 files,  28194 codes, 36 comments, 109 blanks, all 28339 lines
+
+Languages
++------------------+------------+------------+------------+------------+------------+
+| language         | files      | code       | comment    | blank      | total      |
++------------------+------------+------------+------------+------------+------------+
+| JSON             |          6 |     27,525 |         16 |          4 |     27,545 |
+| TypeScript React |         17 |        654 |         20 |        103 |        777 |
+| JavaScript       |          3 |         15 |          0 |          2 |         17 |
++------------------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                      | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                         |         26 |     28,194 |         36 |        109 |     28,339 |
+| .expo-shared                                                              |          1 |          4 |          0 |          1 |          5 |
+| components                                                                |          2 |        108 |          0 |         12 |        120 |
+| navigation                                                                |          3 |        193 |          0 |         25 |        218 |
+| screens                                                                   |          9 |        240 |         18 |         46 |        304 |
+| screens\HomeTabScreens                                                    |          3 |         88 |          8 |         14 |        110 |
++---------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| filename                                                                  | language         | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| c:\Users\Edward\Desktop\Radio\RadioBird\.eslintrc.js                      | JavaScript       |          4 |          0 |          1 |          5 |
+| c:\Users\Edward\Desktop\Radio\RadioBird\.expo-shared\assets.json          | JSON             |          4 |          0 |          1 |          5 |
+| c:\Users\Edward\Desktop\Radio\RadioBird\.prettierrc.js                    | JavaScript       |          5 |          0 |          0 |          5 |
+| c:\Users\Edward\Desktop\Radio\RadioBird\App.tsx                           | TypeScript React |         13 |          1 |          2 |         16 |
+| c:\Users\Edward\Desktop\Radio\RadioBird\Context.tsx                       | TypeScript React |         73 |          1 |         13 |         87 |
+| c:\Users\Edward\Desktop\Radio\RadioBird\RootNavigation.tsx                | TypeScript React |         27 |          0 |          5 |         32 |
+| c:\Users\Edward\Desktop\Radio\RadioBird\app.json                          | JSON             |         17 |         16 |          0 |         33 |
+| c:\Users\Edward\Desktop\Radio\RadioBird\babel.config.js                   | JavaScript       |          6 |          0 |          1 |          7 |
+| c:\Users\Edward\Desktop\Radio\RadioBird\components\MusicTabBar.tsx        | TypeScript React |         92 |          0 |          9 |        101 |
+| c:\Users\Edward\Desktop\Radio\RadioBird\components\SearchButton.tsx       | TypeScript React |         16 |          0 |          3 |         19 |
+| c:\Users\Edward\Desktop\Radio\RadioBird\navigation\navigation.tsx         | TypeScript React |         83 |          0 |          9 |         92 |
+| c:\Users\Edward\Desktop\Radio\RadioBird\navigation\stacks.tsx             | TypeScript React |         74 |          0 |          7 |         81 |
+| c:\Users\Edward\Desktop\Radio\RadioBird\navigation\toptabs.tsx            | TypeScript React |         36 |          0 |          9 |         45 |
+| c:\Users\Edward\Desktop\Radio\RadioBird\package-lock.json                 | JSON             |     10,415 |          0 |          1 |     10,416 |
+| c:\Users\Edward\Desktop\Radio\RadioBird\package.json                      | JSON             |         45 |          0 |          1 |         46 |
+| c:\Users\Edward\Desktop\Radio\RadioBird\screens\FavouritesScreen.tsx      | TypeScript React |         14 |          0 |          5 |         19 |
+| c:\Users\Edward\Desktop\Radio\RadioBird\screens\HomeScreen.tsx            | TypeScript React |        120 |         10 |         17 |        147 |
+| c:\Users\Edward\Desktop\Radio\RadioBird\screens\HomeTabScreens\ForYou.tsx | TypeScript React |         88 |          8 |         12 |        108 |
+| c:\Users\Edward\Desktop\Radio\RadioBird\screens\HomeTabScreens\Music.tsx  | TypeScript React |          0 |          0 |          1 |          1 |
+| c:\Users\Edward\Desktop\Radio\RadioBird\screens\HomeTabScreens\News.tsx   | TypeScript React |          0 |          0 |          1 |          1 |
+| c:\Users\Edward\Desktop\Radio\RadioBird\screens\ModalScreen.tsx           | TypeScript React |          6 |          0 |          3 |          9 |
+| c:\Users\Edward\Desktop\Radio\RadioBird\screens\ProfileScreen.tsx         | TypeScript React |          6 |          0 |          3 |          9 |
+| c:\Users\Edward\Desktop\Radio\RadioBird\screens\SearchScreen.tsx          | TypeScript React |          6 |          0 |          3 |          9 |
+| c:\Users\Edward\Desktop\Radio\RadioBird\screens\Sport.tsx                 | TypeScript React |          0 |          0 |          1 |          1 |
+| c:\Users\Edward\Desktop\Radio\RadioBird\stationsuk.json                   | JSON             |     17,032 |          0 |          0 |     17,032 |
+| c:\Users\Edward\Desktop\Radio\RadioBird\tsconfig.json                     | JSON             |         12 |          0 |          1 |         13 |
+| Total                                                                     |                  |     28,194 |         36 |        109 |     28,339 |
++---------------------------------------------------------------------------+------------------+------------+------------+------------+------------+

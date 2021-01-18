@@ -27,7 +27,7 @@ const HomeScreen = ({ navigation }) => {
 
   const sortedStations = stationsuk.sort((a, b) => b.votes - a.votes);
 
-  const renderStations = sortedStations.slice(0, 10).map((station, i) => {
+  const renderStations = sortedStations.slice(0, 6).map((station, i) => {
     // console.log(station.favicon, 'sep', i, 'FAVICON');
     const [source, setSource] = useState(true);
 

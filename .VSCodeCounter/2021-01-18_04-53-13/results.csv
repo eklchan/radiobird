@@ -1,0 +1,28 @@
+"filename", "language", "JSON", "TypeScript React", "JavaScript", "comment", "blank", "total"
+"c:\Users\Edward\Desktop\Radio\RadioBird\.eslintrc.js", "JavaScript", 0, 0, 4, 0, 1, 5
+"c:\Users\Edward\Desktop\Radio\RadioBird\.expo-shared\assets.json", "JSON", 4, 0, 0, 0, 1, 5
+"c:\Users\Edward\Desktop\Radio\RadioBird\.prettierrc.js", "JavaScript", 0, 0, 5, 0, 0, 5
+"c:\Users\Edward\Desktop\Radio\RadioBird\App.tsx", "TypeScript React", 0, 13, 0, 1, 2, 16
+"c:\Users\Edward\Desktop\Radio\RadioBird\Context.tsx", "TypeScript React", 0, 105, 0, 1, 16, 122
+"c:\Users\Edward\Desktop\Radio\RadioBird\RootNavigation.tsx", "TypeScript React", 0, 56, 0, 0, 7, 63
+"c:\Users\Edward\Desktop\Radio\RadioBird\app.json", "JSON", 17, 0, 0, 16, 0, 33
+"c:\Users\Edward\Desktop\Radio\RadioBird\babel.config.js", "JavaScript", 0, 0, 6, 0, 1, 7
+"c:\Users\Edward\Desktop\Radio\RadioBird\components\MusicTabBar.tsx", "TypeScript React", 0, 90, 0, 1, 8, 99
+"c:\Users\Edward\Desktop\Radio\RadioBird\components\SearchButton.tsx", "TypeScript React", 0, 16, 0, 0, 3, 19
+"c:\Users\Edward\Desktop\Radio\RadioBird\navigation\navigation.tsx", "TypeScript React", 0, 83, 0, 0, 9, 92
+"c:\Users\Edward\Desktop\Radio\RadioBird\navigation\stacks.tsx", "TypeScript React", 0, 74, 0, 0, 7, 81
+"c:\Users\Edward\Desktop\Radio\RadioBird\navigation\toptabs.tsx", "TypeScript React", 0, 36, 0, 0, 9, 45
+"c:\Users\Edward\Desktop\Radio\RadioBird\package-lock.json", "JSON", 10415, 0, 0, 0, 1, 10416
+"c:\Users\Edward\Desktop\Radio\RadioBird\package.json", "JSON", 45, 0, 0, 0, 1, 46
+"c:\Users\Edward\Desktop\Radio\RadioBird\screens\FavouritesScreen.tsx", "TypeScript React", 0, 14, 0, 0, 5, 19
+"c:\Users\Edward\Desktop\Radio\RadioBird\screens\HomeScreen.tsx", "TypeScript React", 0, 120, 0, 10, 17, 147
+"c:\Users\Edward\Desktop\Radio\RadioBird\screens\HomeTabScreens\ForYou.tsx", "TypeScript React", 0, 88, 0, 8, 12, 108
+"c:\Users\Edward\Desktop\Radio\RadioBird\screens\HomeTabScreens\Music.tsx", "TypeScript React", 0, 0, 0, 0, 1, 1
+"c:\Users\Edward\Desktop\Radio\RadioBird\screens\HomeTabScreens\News.tsx", "TypeScript React", 0, 0, 0, 0, 1, 1
+"c:\Users\Edward\Desktop\Radio\RadioBird\screens\ModalScreen.tsx", "TypeScript React", 0, 146, 0, 1, 11, 158
+"c:\Users\Edward\Desktop\Radio\RadioBird\screens\ProfileScreen.tsx", "TypeScript React", 0, 6, 0, 0, 3, 9
+"c:\Users\Edward\Desktop\Radio\RadioBird\screens\SearchScreen.tsx", "TypeScript React", 0, 6, 0, 0, 3, 9
+"c:\Users\Edward\Desktop\Radio\RadioBird\screens\Sport.tsx", "TypeScript React", 0, 0, 0, 0, 1, 1
+"c:\Users\Edward\Desktop\Radio\RadioBird\stationsuk.json", "JSON", 17032, 0, 0, 0, 0, 17032
+"c:\Users\Edward\Desktop\Radio\RadioBird\tsconfig.json", "JSON", 12, 0, 0, 0, 1, 13
+"Total", "-", 27525, 853, 15, 38, 121, 28552
