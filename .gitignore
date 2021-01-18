@@ -1,5 +1,6 @@
 node_modules/**/*
 .expo/*
+.VSCodeCounter/*
 npm-debug.*
 *.jks
 *.p8
