@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, Image, ActivityIndicator } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {
@@ -17,8 +17,6 @@ const MusicTabBar = ({ navigation }) => {
   const handlePauseSound: Function = useHandlePauseContext();
   const handlePlaySound: Function = useHandlePlayContext();
   const audioPlaying: boolean = useAudioPlayingContext();
-
-  // console.log(audioPlaying, 'AUDIO PLAYING');
 
   const handlePausePress = () => {
     handlePauseSound();
@@ -45,11 +43,9 @@ const MusicTabBar = ({ navigation }) => {
             <Text style={styles.stationName}>{station.name}</Text>
           </TouchableOpacity>
           {loadingAudio && (
-            <ActivityIndicator
-              size="large"
-              color="#00ff00"
-              style={styles.playButton}
-            />
+            <View style={styles.playButton}>
+              <ActivityIndicator size={24} color="#00ff00" />
+            </View>
           )}
           {!audioPlaying && !loadingAudio && (
             <Button style={styles.playButton} onPress={handlePlayPress} rounded>
@@ -60,7 +56,8 @@ const MusicTabBar = ({ navigation }) => {
             <Button
               style={styles.playButton}
               onPress={handlePausePress}
-              rounded
+              // transparent
+              iconLeft
             >
               <Ionicons name="pause-sharp" size={24} color="black" />
             </Button>
@@ -75,6 +72,9 @@ const styles = StyleSheet.create({
   container: {
     height: 60,
     flexDirection: 'row',
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(128,128,128, 0.3)',
+    backgroundColor: '#f7f7f7',
   },
   touchable: {
     flexDirection: 'row',
@@ -86,12 +86,17 @@ const styles = StyleSheet.create({
   },
   stationName: {
     alignSelf: 'center',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   playButton: {
     alignSelf: 'center',
     marginLeft: 'auto',
+    justifyContent: 'center',
     marginRight: 20,
     padding: 10,
+    borderRadius: 50,
+    backgroundColor: 'rgba(200,200,200, 0.9)',
   },
 });
 

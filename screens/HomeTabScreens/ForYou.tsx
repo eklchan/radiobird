@@ -1,24 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Image, Text, View, Button } from 'react-native';
+import { StyleSheet, Image, Text, View } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import stationsuk from '../../stationsuk.json';
 import { useUrl, useUrlUpdate } from '../../Context';
+import { Card, Spinner } from 'native-base';
+import AppLoading from 'expo-app-loading';
+import {
+  useFonts,
+  Lato_900Black,
+  Lato_700Bold,
+  Lato_400Regular,
+} from '@expo-google-fonts/lato';
 
 const ForYou = () => {
+  let [fontsLoaded] = useFonts({
+    Lato_900Black,
+    Lato_700Bold,
+    Lato_400Regular,
+  });
+
   const setStation = useUrlUpdate();
-
-  // const handleStop = () => {
-  //   sound.unloadAsync();
-  // };
-
-  // const handleTest = async () => {
-  //   const hi = await sound.getStatusAsync();
-  //   console.log(hi, 'HI');
-  // };
 
   const sortedStations = stationsuk.sort((a, b) => b.votes - a.votes);
 
-  const renderStations = sortedStations.slice(0, 10).map((station, i) => {
+  const renderStations = sortedStations.slice(0, 8).map((station, i) => {
     const [source, setSource] = useState(station.favicon);
 
     const handleError = () => {
@@ -35,45 +40,79 @@ const ForYou = () => {
 
     return (
       <View style={styles.station} key={station.name}>
-        <TouchableOpacity onPress={handleClick} style={styles.button}>
-          <Image
-            onError={handleError}
-            source={{ uri: `${source}` }}
-            style={{ height: 120, width: 120, margin: 5 }}
-            key={station.name}
-          />
-          <Text>{station.name}</Text>
+        <TouchableOpacity
+          onPress={handleClick}
+          style={styles.button}
+          activeOpacity={0.65}
+        >
+          <Card style={{ borderRadius: 17 }}>
+            {/* <CardItem> */}
+            {/* <Body> */}
+            <Image
+              onError={handleError}
+              source={{ uri: `${source}` }}
+              style={{
+                height: 120,
+                width: 120,
+                borderRadius: 17,
+              }}
+              key={station.name}
+            />
+            {/* </Body> */}
+            {/* </CardItem> */}
+          </Card>
         </TouchableOpacity>
+        <Text style={styles.stationName}>{station.name}</Text>
       </View>
     );
   });
-
-  return (
-    <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-      <Text>Recently Listened</Text>
-      <ScrollView horizontal={true} style={styles.stationWrapper}>
-        {renderStations}
+  if (!fontsLoaded) {
+    return <Spinner style={styles.loadingSpinner} />;
+  } else {
+    return (
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
+        <Text style={styles.headerText}>Recently Listened</Text>
+        <ScrollView
+          horizontal={true}
+          style={styles.stationWrapper}
+          showsHorizontalScrollIndicator={false}
+        >
+          {renderStations}
+        </ScrollView>
+        <Text style={styles.headerText}>Local Radio</Text>
+        <ScrollView
+          horizontal={true}
+          style={styles.stationWrapper}
+          showsHorizontalScrollIndicator={false}
+        >
+          {renderStations}
+        </ScrollView>
+        <Text style={styles.headerText}>National</Text>
+        <ScrollView
+          horizontal={true}
+          style={styles.stationWrapper}
+          showsHorizontalScrollIndicator={false}
+        >
+          {renderStations}
+        </ScrollView>
+        <Text style={styles.headerText}>Listen By Category</Text>
+        <ScrollView
+          horizontal={true}
+          style={styles.stationWrapper}
+          showsHorizontalScrollIndicator={false}
+        >
+          {renderStations}
+        </ScrollView>
       </ScrollView>
-      <Text>Local Radio</Text>
-      <ScrollView horizontal={true} style={styles.stationWrapper}>
-        {renderStations}
-      </ScrollView>
-      <Text>National</Text>
-      <ScrollView horizontal={true} style={styles.stationWrapper}>
-        {renderStations}
-      </ScrollView>
-      <Text>Listen By Category</Text>
-      <ScrollView horizontal={true} style={styles.stationWrapper}>
-        {renderStations}
-      </ScrollView>
-    </ScrollView>
-  );
+    );
+  }
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
+    paddingTop: 15,
   },
   stationWrapper: {
     flex: 1,
@@ -90,17 +129,33 @@ const styles = StyleSheet.create({
   },
   station: {
     margin: 10,
-    width: 130,
+    width: 122,
     height: 180,
     overflow: 'hidden',
     alignSelf: 'center',
     flex: 1,
   },
   button: {
-    backgroundColor: 'grey',
+    // backgroundColor: 'grey',
   },
   scroll: {
     color: 'white',
+  },
+  headerText: {
+    fontSize: 18,
+    marginLeft: 10,
+    // fontWeight: '700',
+    fontFamily: 'Lato_700Bold',
+  },
+  stationName: {
+    fontSize: 15,
+    padding: 2,
+    margin: 2,
+    fontFamily: 'Lato_400Regular',
+  },
+  loadingSpinner: {
+    alignSelf: 'center',
+    marginTop: 10,
   },
 });
 

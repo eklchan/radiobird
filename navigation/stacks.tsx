@@ -1,18 +1,21 @@
 import React from 'react';
-import HomeScreen from '../screens/HomeScreen';
 import FavouritesScreen from '../screens/FavouritesScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import SearchScreen from '../screens/SearchScreen';
 import SearchButton from '../components/SearchButton';
 import HomeTopTabs from './toptabs';
+import AboutUsScreen from '../screens/AboutUsScreen';
+import SettingsScreen from '../screens/SettingsScreen';
+import ContactScreen from '../screens/ContactScreen';
 import { createStackNavigator } from '@react-navigation/stack';
+import { HeaderBackButton } from '@react-navigation/stack';
 
 const HomeStack = createStackNavigator();
 const FavouritesStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
 const SearchStack = createStackNavigator();
 
-const SearchScreens = () => {
+const SearchScreens = ({ navigation }) => {
   return (
     <SearchStack.Navigator>
       <SearchStack.Screen
@@ -20,6 +23,9 @@ const SearchScreens = () => {
         component={SearchScreen}
         options={{
           headerTitle: 'Search',
+          headerLeft: () => {
+            return <HeaderBackButton onPress={navigation.goBack} />;
+          },
         }}
       />
     </SearchStack.Navigator>
@@ -68,6 +74,36 @@ const ProfileScreens = ({ navigation }) => {
         component={ProfileScreen}
         options={{
           headerTitle: 'Profile',
+          headerRight: () => {
+            return <SearchButton navigation={navigation} />;
+          },
+        }}
+      />
+      <ProfileStack.Screen
+        name="settings"
+        component={SettingsScreen}
+        options={{
+          headerTitle: 'Settings',
+          headerRight: () => {
+            return <SearchButton navigation={navigation} />;
+          },
+        }}
+      />
+      <ProfileStack.Screen
+        name="about"
+        component={AboutUsScreen}
+        options={{
+          headerTitle: 'About Us',
+          headerRight: () => {
+            return <SearchButton navigation={navigation} />;
+          },
+        }}
+      />
+      <ProfileStack.Screen
+        name="contact"
+        component={ContactScreen}
+        options={{
+          headerTitle: 'Contact',
           headerRight: () => {
             return <SearchButton navigation={navigation} />;
           },
