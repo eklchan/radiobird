@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import FavouritesScreen from '../screens/FavouritesScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import SearchScreen from '../screens/SearchScreen';
@@ -9,6 +9,12 @@ import SettingsScreen from '../screens/SettingsScreen';
 import ContactScreen from '../screens/ContactScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import { HeaderBackButton } from '@react-navigation/stack';
+import { View, Text } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { Input, Button } from 'native-base';
+import 'react-native-console-time-polyfill';
+
+const allStations = require('../radio-stations.json');
 
 const HomeStack = createStackNavigator();
 const FavouritesStack = createStackNavigator();
@@ -16,15 +22,82 @@ const ProfileStack = createStackNavigator();
 const SearchStack = createStackNavigator();
 
 const SearchScreens = ({ navigation }) => {
+  const [input, setInput] = useState('');
+
+  // const testStations = () => {
+  //   console.time('stations');
+  //   let store = [];
+  //   let storeObj = {};
+
+  //   allStations.forEach((station) => {
+  //     if (station.country) {
+  //       if (storeObj[station.country]) {
+  //         storeObj[station.country]++;
+  //       } else {
+  //         storeObj[station.country] = 1;
+  //       }
+  //     }
+  //     if (station.country === 'Hong Kong') {
+  //       store.push(station.name, station.url);
+  //     }
+  //   });
+
+  //   console.timeEnd('stations');
+  // };
+
+  // useEffect(() => {
+  //   testStations();
+  // });
+
+  const handleInputChange = (text: string) => {
+    setInput(text);
+  };
+
+  const handleClearInput = () => {
+    setInput('');
+  };
+
   return (
     <SearchStack.Navigator>
       <SearchStack.Screen
         name="search"
         component={SearchScreen}
         options={{
-          headerTitle: 'Search',
-          headerLeft: () => {
-            return <HeaderBackButton onPress={navigation.goBack} />;
+          headerTitle: () => {
+            return (
+              <View
+                style={{
+                  width: '100%',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}
+              >
+                <HeaderBackButton
+                  style={{ marginLeft: 0 }}
+                  onPress={navigation.goBack}
+                />
+                <Input
+                  onChangeText={(text) => handleInputChange(text)}
+                  value={input}
+                  placeholder="Search Radio Stations"
+                />
+                {!!input && (
+                  <Button
+                    rounded
+                    transparent
+                    onPress={handleClearInput}
+                    style={{
+                      width: 40,
+                      height: 40,
+                      justifyContent: 'center',
+                      alignSelf: 'center',
+                    }}
+                  >
+                    <Ionicons name="close" size={24} color="black" />
+                  </Button>
+                )}
+              </View>
+            );
           },
         }}
       />

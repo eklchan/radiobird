@@ -1,7 +1,18 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Thumbnail, Card, List, ListItem } from 'native-base';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import {
+  Thumbnail,
+  Card,
+  List,
+  ListItem,
+  Left,
+  Right,
+  Icon,
+} from 'native-base';
+import {
+  TouchableHighlight,
+  TouchableOpacity,
+} from 'react-native-gesture-handler';
 import {
   useFonts,
   Lato_900Black,
@@ -16,6 +27,10 @@ const ProfileScreen = ({ navigation }) => {
     Lato_700Bold,
     Lato_400Regular,
   });
+
+  const buttonOpacity = 0.9;
+  const underlayColour = '#cfcfcf';
+
   if (!fontsLoaded) {
     return <AppLoading />;
   } else {
@@ -34,29 +49,52 @@ const ProfileScreen = ({ navigation }) => {
               <Text style={styles.mainName}>edwardklc1993@gmail.com</Text>
             </View>
           </ListItem>
-          <ListItem>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('settings');
-              }}
-            >
-              <Text style={styles.listItemText}>Settings</Text>
-            </TouchableOpacity>
-          </ListItem>
-          <ListItem>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('about');
-              }}
-            >
-              <Text style={styles.listItemText}>About Us</Text>
-            </TouchableOpacity>
-          </ListItem>
-          <ListItem>
-            <TouchableOpacity onPress={() => navigation.navigate('contact')}>
-              <Text style={styles.listItemText}>Contact</Text>
-            </TouchableOpacity>
-          </ListItem>
+          <TouchableHighlight
+            activeOpacity={buttonOpacity}
+            underlayColor={underlayColour}
+            onPress={() => {
+              navigation.navigate('settings');
+            }}
+          >
+            <ListItem>
+              <Left>
+                <Text style={styles.listItemText}>Settings</Text>
+              </Left>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </ListItem>
+          </TouchableHighlight>
+          <TouchableHighlight
+            activeOpacity={buttonOpacity}
+            underlayColor={underlayColour}
+            onPress={() => {
+              navigation.navigate('about');
+            }}
+          >
+            <ListItem>
+              <Left>
+                <Text style={styles.listItemText}>About Us</Text>
+              </Left>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </ListItem>
+          </TouchableHighlight>
+          <TouchableHighlight
+            activeOpacity={buttonOpacity}
+            underlayColor={underlayColour}
+            onPress={() => navigation.navigate('contact')}
+          >
+            <ListItem>
+              <Left>
+                <Text style={styles.listItemText}>Contact</Text>
+              </Left>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </ListItem>
+          </TouchableHighlight>
         </List>
       </View>
     );
@@ -68,7 +106,7 @@ export default ProfileScreen;
 const styles = StyleSheet.create({
   container: {
     paddingTop: 15,
-    marginHorizontal: 15,
+    // marginHorizontal: 15,
   },
   rowOne: {
     width: '100%',
