@@ -25,6 +25,7 @@ import {
 } from '@expo/vector-icons';
 import { Badge, Button } from 'native-base';
 import { formatTime } from '../utils/utils';
+import { addToFavourites } from '../utils/localStorage';
 
 const PlayerScreen = () => {
   const station: any = useUrl();
@@ -67,7 +68,9 @@ const PlayerScreen = () => {
     handlePlaySound();
   };
 
-  const handleStarPress = () => {};
+  const handleStarPress = () => {
+    addToFavourites(station);
+  };
 
   const handleShowModal = () => {
     setModalVisible(true);

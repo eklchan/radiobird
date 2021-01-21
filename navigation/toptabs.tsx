@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import ForYou from '../screens/HomeTabScreens/ForYou';
 import { TabBar } from 'react-native-tab-view';

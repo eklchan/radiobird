@@ -41,12 +41,17 @@ const News = () => {
     };
 
     return (
-      <TouchableOpacity onPress={handleCardPress} activeOpacity={0.7}>
+      <TouchableOpacity
+        onPress={handleCardPress}
+        activeOpacity={0.7}
+        key={station.stationuuid}
+      >
         <Card style={styles.card}>
-          <View style={styles.stationContainer} key={station.stationuuid}>
+          <View style={styles.stationContainer}>
             <Image
               source={{ uri: `${source}` }}
               style={styles.faviconImage}
+              key={station.stationuuid}
               onError={() =>
                 setSource(
                   'https://static.heart.co.uk/assets_v4r/heart/img/favicon-196x196.png',

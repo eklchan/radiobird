@@ -52,6 +52,7 @@ const Sport = () => {
             <Image
               source={{ uri: `${source}` }}
               style={styles.faviconImage}
+              key={station.stationuuid}
               onError={() =>
                 setSource(
                   'https://static.heart.co.uk/assets_v4r/heart/img/favicon-196x196.png',
