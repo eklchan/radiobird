@@ -12,7 +12,7 @@ import {
 import { contains } from '../../utils/utils';
 import { useUrlUpdate } from '../../Context';
 
-const News = () => {
+const Sport = () => {
   const setStation: Function = useUrlUpdate();
 
   let [fontsLoaded] = useFonts({
@@ -22,16 +22,17 @@ const News = () => {
   });
 
   const filtered = stationsuk.filter((station) => {
-    const tagString = station.tags;
-    const filterWords = ['news', 'talk'];
+    const tagArray = station.tags;
+    const filterWords = ['sport', 'tennis', 'football'];
 
-    if (contains(tagString, filterWords)) {
+    if (contains(tagArray, filterWords)) {
       return station;
     }
   });
+
   const sortPopularity = filtered.sort((a, b) => b.votes - a.votes);
 
-  const renderFiltered = sortPopularity.slice(0, 10).map((station, i) => {
+  const renderFiltered = sortPopularity.slice(0, 10).map((station) => {
     const [source, setSource] = useState(
       station.favicon ? station.favicon : 'nofavicon',
     );
@@ -41,9 +42,13 @@ const News = () => {
     };
 
     return (
-      <TouchableOpacity onPress={handleCardPress} activeOpacity={0.7}>
+      <TouchableOpacity
+        onPress={handleCardPress}
+        activeOpacity={0.7}
+        key={station.stationuuid}
+      >
         <Card style={styles.card}>
-          <View style={styles.stationContainer} key={station.stationuuid}>
+          <View style={styles.stationContainer}>
             <Image
               source={{ uri: `${source}` }}
               style={styles.faviconImage}
@@ -70,14 +75,14 @@ const News = () => {
   } else {
     return (
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-        <Text style={styles.title}>Most Popular News Channels:</Text>
+        <Text style={styles.title}>Most Popular Sport Channels:</Text>
         <View>{renderFiltered}</View>
       </ScrollView>
     );
   }
 };
 
-export default News;
+export default Sport;
 
 const styles = StyleSheet.create({
   container: {

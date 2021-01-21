@@ -7,9 +7,11 @@ import {
   useHandlePauseContext,
   useHandlePlayContext,
   useAudioPlayingContext,
+  useSleepTimeContext,
 } from '../Context';
-import { AntDesign, Ionicons } from '@expo/vector-icons';
-import { Button } from 'native-base';
+import { AntDesign, Ionicons, FontAwesome } from '@expo/vector-icons';
+import { Badge, Button } from 'native-base';
+import { formatTime } from '../utils/utils';
 
 const MusicTabBar = ({ navigation }) => {
   const station: any = useUrl();
@@ -17,6 +19,7 @@ const MusicTabBar = ({ navigation }) => {
   const handlePauseSound: Function = useHandlePauseContext();
   const handlePlaySound: Function = useHandlePlayContext();
   const audioPlaying: boolean = useAudioPlayingContext();
+  const sleepTime: number = useSleepTimeContext();
 
   const handlePausePress = () => {
     handlePauseSound();
@@ -40,28 +43,51 @@ const MusicTabBar = ({ navigation }) => {
               source={{ uri: `${station.favicon}` }}
               style={styles.image}
             />
-            <Text style={styles.stationName}>{station.name}</Text>
-          </TouchableOpacity>
-          {loadingAudio && (
-            <View style={styles.playButton}>
-              <ActivityIndicator size={24} color="#00ff00" />
+            <View style={styles.textWrap}>
+              <Text style={styles.stationName}>{station.name}</Text>
+              {sleepTime > 0 && (
+                <View style={styles.sleepWrap}>
+                  <Badge style={styles.badge}>
+                    <FontAwesome
+                      name="bed"
+                      size={13}
+                      color="black"
+                      style={styles.sleepIcon}
+                    />
+                    <Text style={styles.badgeText}>
+                      {formatTime(sleepTime)}
+                    </Text>
+                  </Badge>
+                </View>
+              )}
             </View>
-          )}
-          {!audioPlaying && !loadingAudio && (
-            <Button style={styles.playButton} onPress={handlePlayPress} rounded>
-              <AntDesign name="caretright" size={24} color="black" />
-            </Button>
-          )}
-          {audioPlaying && !loadingAudio && (
-            <Button
-              style={styles.playButton}
-              onPress={handlePausePress}
-              // transparent
-              iconLeft
-            >
-              <Ionicons name="pause-sharp" size={24} color="black" />
-            </Button>
-          )}
+          </TouchableOpacity>
+          <View style={styles.iconWrap}>
+            {loadingAudio && (
+              <View style={styles.playButton}>
+                <ActivityIndicator size={24} color="#00ff00" />
+              </View>
+            )}
+            {!audioPlaying && !loadingAudio && (
+              <Button
+                style={styles.playButton}
+                onPress={handlePlayPress}
+                rounded
+              >
+                <AntDesign name="caretright" size={24} color="black" />
+              </Button>
+            )}
+            {audioPlaying && !loadingAudio && (
+              <Button
+                style={styles.playButton}
+                onPress={handlePausePress}
+                // transparent
+                iconLeft
+              >
+                <Ionicons name="pause-sharp" size={24} color="black" />
+              </Button>
+            )}
+          </View>
         </View>
       )}
     </>
@@ -88,6 +114,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: 16,
     fontWeight: 'bold',
+    marginBottom: 2,
   },
   playButton: {
     alignSelf: 'center',
@@ -97,6 +124,31 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 50,
     backgroundColor: 'rgba(200,200,200, 0.9)',
+  },
+  sleepIcon: {
+    alignSelf: 'center',
+    marginRight: 5,
+  },
+  iconWrap: {
+    marginLeft: 'auto',
+    flexDirection: 'row',
+  },
+  textWrap: {
+    alignSelf: 'center',
+  },
+  sleepWrap: {
+    flexDirection: 'row',
+  },
+  badgeText: {
+    fontSize: 11,
+    padding: 0,
+    marginLeft: 2,
+  },
+  badge: {
+    maxHeight: 20,
+    backgroundColor: 'rgba(0,0,0,0.15)',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });
 

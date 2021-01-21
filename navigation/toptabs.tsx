@@ -3,15 +3,20 @@ import { StyleSheet, View, Dimensions } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import ForYou from '../screens/HomeTabScreens/ForYou';
 import { TabBar } from 'react-native-tab-view';
+import News from '../screens/HomeTabScreens/News';
+import Music from '../screens/HomeTabScreens/Music';
+import Sport from '../screens/HomeTabScreens/Sport';
 
 const HomeTopTabs = () => {
   const initialLayout = { width: Dimensions.get('window').width };
 
-  const FirstRoute = () => <ForYou />;
+  const First = () => <ForYou />;
 
-  const SecondRoute = () => (
-    <View style={[styles.scene, { backgroundColor: 'green' }]} />
-  );
+  const Second = () => <News />;
+
+  const Third = () => <Music />;
+
+  const Fourth = () => <Sport />;
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
@@ -22,10 +27,10 @@ const HomeTopTabs = () => {
   ]);
 
   const renderScene = SceneMap({
-    first: FirstRoute,
-    second: SecondRoute,
-    third: SecondRoute,
-    fourth: SecondRoute,
+    first: First,
+    second: Second,
+    third: Third,
+    fourth: Fourth,
   });
   const renderTabBar = (props) => (
     <TabBar

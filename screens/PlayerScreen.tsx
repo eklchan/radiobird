@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -15,6 +15,8 @@ import {
   useHandlePauseContext,
   useAudioPlayingContext,
   useLoadingContext,
+  useSleepTimeContext,
+  useSetSleepTimeContext,
 } from '../Context';
 import {
   AntDesign,
@@ -22,6 +24,7 @@ import {
   MaterialCommunityIcons,
 } from '@expo/vector-icons';
 import { Badge, Button } from 'native-base';
+import { formatTime } from '../utils/utils';
 
 const PlayerScreen = () => {
   const station: any = useUrl();
@@ -29,9 +32,10 @@ const PlayerScreen = () => {
   const handlePauseSound: Function = useHandlePauseContext();
   const handlePlaySound: Function = useHandlePlayContext();
   const audioPlaying: boolean = useAudioPlayingContext();
+  const setSleepTime: Function = useSetSleepTimeContext();
+  const sleepTime: number = useSleepTimeContext();
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [sleepTime, setSleepTime] = useState(-1);
 
   const uniqueTags: Array<string> = Array.from(
     new Set(station.tags.split(',')),
@@ -79,34 +83,6 @@ const PlayerScreen = () => {
 
   const handleTimerDisable = () => {
     setSleepTime(-1);
-  };
-
-  useEffect(() => {
-    if (sleepTime > 0) {
-      const timer = setTimeout(() => {
-        setSleepTime(sleepTime - 1);
-      }, 1000);
-
-      return () => clearTimeout(timer);
-    }
-    if (sleepTime === 0) {
-      console.log('DONE');
-      setSleepTime(-1);
-    }
-  }, [sleepTime]);
-
-  const formatTime = (time: number) => {
-    let hrs = Math.floor(time / 3600);
-    let mins = Math.floor((time % 3600) / 60);
-    let secs = Math.floor(time % 60);
-
-    let ret = time > 35999 ? '' : '0';
-    if (hrs >= 0) {
-      ret += '' + hrs + ':' + (mins < 10 ? '0' : '');
-    }
-    ret += '' + mins + ':' + (secs < 10 ? '0' : '');
-    ret += '' + secs;
-    return ret;
   };
 
   return (

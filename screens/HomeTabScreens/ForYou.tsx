@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Image, Text, View } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import stationsuk from '../../stationsuk.json';
-import { useUrl, useUrlUpdate } from '../../Context';
+import { useUrlUpdate } from '../../Context';
 import { Card, Spinner } from 'native-base';
-import AppLoading from 'expo-app-loading';
 import {
   useFonts,
   Lato_900Black,
@@ -27,7 +26,6 @@ const ForYou = () => {
     const [source, setSource] = useState(station.favicon);
 
     const handleError = () => {
-      // console.log('ERROR', station.name);
       setSource(
         'https://static.heart.co.uk/assets_v4r/heart/img/favicon-196x196.png',
       );
@@ -51,11 +49,7 @@ const ForYou = () => {
             <Image
               onError={handleError}
               source={{ uri: `${source}` }}
-              style={{
-                height: 120,
-                width: 120,
-                borderRadius: 17,
-              }}
+              style={styles.faviconImage}
               key={station.name}
             />
             {/* </Body> */}
@@ -144,7 +138,6 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 18,
     marginLeft: 10,
-    // fontWeight: '700',
     fontFamily: 'Lato_700Bold',
   },
   stationName: {
@@ -156,6 +149,11 @@ const styles = StyleSheet.create({
   loadingSpinner: {
     alignSelf: 'center',
     marginTop: 10,
+  },
+  faviconImage: {
+    height: 120,
+    width: 120,
+    borderRadius: 17,
   },
 });
 

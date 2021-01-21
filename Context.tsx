@@ -9,12 +9,14 @@ const LoadingAudioContext = createContext();
 const AudioPlayingContext = createContext();
 const HandlePauseContext = createContext();
 const HandlePlayContext = createContext();
+const SleepTimeContext = createContext();
+const SetSleepTimeContext = createContext();
 
 export const useUrl = () => {
   return useContext(UrlContext);
 };
 
-export const useUrlUpdate = () => {
+export const useUrlUpdate: Function = () => {
   return useContext(UrlUpdateContext);
 };
 
@@ -36,10 +38,19 @@ export const useHandlePlayContext: Function = () => {
   return useContext(HandlePlayContext);
 };
 
+export const useSleepTimeContext: Function = () => {
+  return useContext(SleepTimeContext);
+};
+
+export const useSetSleepTimeContext: Function = () => {
+  return useContext(SetSleepTimeContext);
+};
+
 let sound: any;
 const initiateAudio = async () => {
   await Audio.setAudioModeAsync({ staysActiveInBackground: true });
   sound = new Audio.Sound();
+  console.log('AUDIO INITIATED');
 };
 initiateAudio();
 
@@ -47,6 +58,23 @@ export const UrlProvider = ({ children }: any) => {
   const [station, setStation] = useState();
   const [loadingAudio, setLoadingAudio] = useState(false);
   const [audioPlaying, setAudioPlaying] = useState(false);
+  const [sleepTime, setSleepTime] = useState(-1);
+
+  useEffect(() => {
+    if (sleepTime > 0) {
+      const timer = setTimeout(() => {
+        setSleepTime(sleepTime - 1);
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+    if (sleepTime === 0) {
+      console.log('DONE');
+      sound.stopAsync();
+      setAudioPlaying(false);
+      setSleepTime(-1);
+    }
+  }, [sleepTime]);
 
   useEffect(() => {
     const startSound = async () => {
@@ -109,7 +137,11 @@ export const UrlProvider = ({ children }: any) => {
             <AudioPlayingContext.Provider value={audioPlaying}>
               <HandlePauseContext.Provider value={handlePauseSound}>
                 <HandlePlayContext.Provider value={handlePlaySound}>
-                  {children}
+                  <SleepTimeContext.Provider value={sleepTime}>
+                    <SetSleepTimeContext.Provider value={setSleepTime}>
+                      {children}
+                    </SetSleepTimeContext.Provider>
+                  </SleepTimeContext.Provider>
                 </HandlePlayContext.Provider>
               </HandlePauseContext.Provider>
             </AudioPlayingContext.Provider>
