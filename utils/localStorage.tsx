@@ -36,7 +36,7 @@ export const addToFavourites = async (value) => {
   await storeFavourites(favourites);
 };
 
-export const deteleFromFavourties = async (value) => {
+export const deleteFromFavourites = async (value) => {
   let favourites = await getFavourites();
 
   const stationIndex = favourites.findIndex((alreadyFavourited) => {
@@ -47,6 +47,20 @@ export const deteleFromFavourties = async (value) => {
     favourites.splice(stationIndex, 1);
   }
   storeFavourites(favourites);
+};
+
+export const favouritedOrNot = async (value) => {
+  let favourites = await getFavourites();
+
+  const stationIndex = favourites.findIndex((alreadyFavourited) => {
+    return alreadyFavourited.stationuuid === value.stationuuid;
+  });
+
+  if (stationIndex !== -1) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 // export const setCart = (cart) => {

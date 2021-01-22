@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -25,7 +25,12 @@ import {
 } from '@expo/vector-icons';
 import { Badge, Button } from 'native-base';
 import { formatTime } from '../utils/utils';
-import { addToFavourites } from '../utils/localStorage';
+import {
+  addToFavourites,
+  getFavourites,
+  favouritedOrNot,
+  deleteFromFavourites,
+} from '../utils/localStorage';
 
 const PlayerScreen = () => {
   const station: any = useUrl();
@@ -37,10 +42,26 @@ const PlayerScreen = () => {
   const sleepTime: number = useSleepTimeContext();
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [favourited, setFavourited] = useState(false);
+  console.log(favourited, 'FAVE OR NOT');
 
   const uniqueTags: Array<string> = Array.from(
     new Set(station.tags.split(',')),
   );
+
+  useEffect(() => {
+    let storageResponse: Array<object>;
+    const fetchData = async () => {
+      const storageResponse = await favouritedOrNot(station);
+      console.log(storageResponse, 'RESPONSE');
+      if (storageResponse) {
+        setFavourited(true);
+      } else {
+        setFavourited(false);
+      }
+    };
+    fetchData();
+  }, [station]);
 
   const renderTags = uniqueTags.map((tag: string) => {
     return (
@@ -68,8 +89,15 @@ const PlayerScreen = () => {
     handlePlaySound();
   };
 
-  const handleStarPress = () => {
-    addToFavourites(station);
+  const handleStarPress = async () => {
+    const storageResponse = await favouritedOrNot(station);
+    if (!storageResponse) {
+      await addToFavourites(station);
+      setFavourited(true);
+    } else {
+      await deleteFromFavourites(station);
+      setFavourited(false);
+    }
   };
 
   const handleShowModal = () => {
@@ -102,12 +130,21 @@ const PlayerScreen = () => {
       <Text>{station.bitrate} kbps</Text>
       <View style={styles.buttonContainers}>
         <TouchableOpacity onPress={handleStarPress}>
-          <AntDesign
-            name="staro"
-            size={26}
-            color="black"
-            style={styles.starIcon}
-          />
+          {favourited ? (
+            <AntDesign
+              name="star"
+              size={26}
+              color="black"
+              style={styles.starIcon}
+            />
+          ) : (
+            <AntDesign
+              name="staro"
+              size={26}
+              color="black"
+              style={styles.starIcon}
+            />
+          )}
         </TouchableOpacity>
         {audioPlaying && !loadingAudio && (
           <Button
