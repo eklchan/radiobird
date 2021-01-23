@@ -27,10 +27,9 @@ import { Badge, Button } from 'native-base';
 import { formatTime } from '../utils/utils';
 import {
   addToFavourites,
-  getFavourites,
   favouritedOrNot,
   deleteFromFavourites,
-} from '../utils/localStorage';
+} from '../utils/localStorageFavourites';
 
 const PlayerScreen = () => {
   const station: any = useUrl();

@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Audio } from 'expo-av';
 import 'react-native-console-time-polyfill';
+import { addToRecents } from './utils/localStorageRecents';
 
 const UrlContext = createContext();
 const UrlUpdateContext = createContext();
@@ -96,6 +97,7 @@ export const UrlProvider = ({ children }: any) => {
           // console.log(play, 'RES');
           setLoadingAudio(false);
           setAudioPlaying(true);
+          addToRecents(station);
         } catch (e) {
           console.log('cannot play the sound file', e);
         }

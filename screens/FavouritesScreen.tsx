@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { getFavourites } from '../utils/localStorage';
+import { getFavourites } from '../utils/localStorageFavourites';
 import { Spinner } from 'native-base';
 import { useUrlUpdate } from '../Context';
 import {
