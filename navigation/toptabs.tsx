@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import ForYou from '../screens/HomeTabScreens/ForYou';
@@ -10,7 +10,7 @@ import Sport from '../screens/HomeTabScreens/Sport';
 const HomeTopTabs = () => {
   const initialLayout = { width: Dimensions.get('window').width };
 
-  const First = () => <ForYou />;
+  const First = ({ jumpTo }) => <ForYou jumpTo={jumpTo} />;
 
   const Second = () => <News />;
 
@@ -18,20 +18,21 @@ const HomeTopTabs = () => {
 
   const Fourth = () => <Sport />;
 
-  const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
-    { key: 'first', title: 'For You' },
-    { key: 'second', title: 'News' },
-    { key: 'third', title: 'Music' },
-    { key: 'fourth', title: 'Sport' },
+  const [index, setIndex] = useState(0);
+  const [routes] = useState([
+    { key: 'forYou', title: 'For You' },
+    { key: 'news', title: 'News' },
+    { key: 'music', title: 'Music' },
+    { key: 'sports', title: 'Sport' },
   ]);
 
   const renderScene = SceneMap({
-    first: First,
-    second: Second,
-    third: Third,
-    fourth: Fourth,
+    forYou: First,
+    news: Second,
+    music: Third,
+    sports: Fourth,
   });
+
   const renderTabBar = (props) => (
     <TabBar
       {...props}

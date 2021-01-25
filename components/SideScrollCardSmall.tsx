@@ -19,7 +19,7 @@ const SideScrollCard = ({ station }) => {
   return (
     <View style={styles.station} key={station.name}>
       <TouchableOpacity style={styles.button} activeOpacity={0.65}>
-        <Card style={{ borderRadius: 17 }}>
+        <Card style={{ borderRadius: 15 }}>
           <Image
             onError={handleError}
             source={
@@ -52,14 +52,11 @@ const styles = StyleSheet.create({
   },
   station: {
     margin: 10,
-    width: 122,
-    height: 180,
+    width: 95,
+    height: 150,
     overflow: 'hidden',
     alignSelf: 'center',
     flex: 1,
-  },
-  button: {
-    // backgroundColor: 'grey',
   },
   headerText: {
     fontSize: 18,
@@ -67,7 +64,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Lato_700Bold',
   },
   stationName: {
-    fontSize: 15,
+    fontSize: 14,
     padding: 2,
     margin: 2,
     fontFamily: 'Lato_400Regular',
@@ -77,9 +74,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   faviconImage: {
-    height: 120,
-    width: 120,
-    borderRadius: 17,
+    height: 90,
+    width: 90,
+    borderRadius: 15,
   },
 });
 
