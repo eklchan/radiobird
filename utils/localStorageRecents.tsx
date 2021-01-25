@@ -14,6 +14,7 @@ export const storeRecents = async (value) => {
   try {
     const jsonValue = JSON.stringify(value);
     await AsyncStorage.setItem('recentListens', jsonValue);
+    return true;
   } catch (e) {
     console.log('error STORE', e);
   }
@@ -36,5 +37,5 @@ export const addToRecents = async (value) => {
 };
 
 export const clearAllRecents = async () => {
-  await storeRecents([]);
+  return await storeRecents([]);
 };

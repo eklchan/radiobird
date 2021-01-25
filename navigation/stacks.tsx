@@ -7,14 +7,13 @@ import HomeTopTabs from './toptabs';
 import AboutUsScreen from '../screens/AboutUsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import ContactScreen from '../screens/ContactScreen';
+import RecentsScreen from '../screens/RecentsScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import { HeaderBackButton } from '@react-navigation/stack';
 import { View, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Input, Button } from 'native-base';
 import 'react-native-console-time-polyfill';
-
-const allStations = require('../radio-stations.json');
 
 const HomeStack = createStackNavigator();
 const FavouritesStack = createStackNavigator();
@@ -113,6 +112,16 @@ const HomeScreens = ({ navigation }) => {
         component={HomeTopTabs}
         options={{
           headerTitle: 'Home Screen',
+          headerRight: () => {
+            return <SearchButton navigation={navigation} />;
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="recents"
+        component={RecentsScreen}
+        options={{
+          headerTitle: 'Recent Listens',
           headerRight: () => {
             return <SearchButton navigation={navigation} />;
           },

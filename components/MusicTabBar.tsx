@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, ActivityIndicator } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {
@@ -21,6 +21,12 @@ const MusicTabBar = ({ navigation }) => {
   const audioPlaying: boolean = useAudioPlayingContext();
   const sleepTime: number = useSleepTimeContext();
 
+  const [source, setSource] = useState(station.favicon);
+
+  useEffect(() => {
+    setSource(station.favicon);
+  }, [station.favicon]);
+
   const handlePausePress = () => {
     handlePauseSound();
   };
@@ -40,7 +46,14 @@ const MusicTabBar = ({ navigation }) => {
             style={styles.touchable}
           >
             <Image
-              source={{ uri: `${station.favicon}` }}
+              source={
+                source
+                  ? { uri: `${source}` }
+                  : {
+                      uri:
+                        'https://static.heart.co.uk/assets_v4r/heart/img/favicon-196x196.png',
+                    }
+              }
               style={styles.image}
             />
             <View style={styles.textWrap}>
@@ -81,7 +94,6 @@ const MusicTabBar = ({ navigation }) => {
               <Button
                 style={styles.playButton}
                 onPress={handlePausePress}
-                // transparent
                 iconLeft
               >
                 <Ionicons name="pause-sharp" size={24} color="black" />

@@ -5,7 +5,7 @@ import { Card } from 'native-base';
 
 type ListItemCardProps = {
   station: object;
-  setStation: Function;
+  setStation?: Function;
 };
 
 const ListItemCard: FunctionComponent<ListItemCardProps> = ({
@@ -17,7 +17,7 @@ const ListItemCard: FunctionComponent<ListItemCardProps> = ({
   );
 
   const handleCardPress = () => {
-    setStation(station);
+    // setStation(station);
   };
 
   useEffect(() => {
@@ -33,7 +33,14 @@ const ListItemCard: FunctionComponent<ListItemCardProps> = ({
       <Card style={styles.card}>
         <View style={styles.stationContainer}>
           <Image
-            source={{ uri: `${source}` }}
+            source={
+              source
+                ? { uri: `${source}` }
+                : {
+                    uri:
+                      'https://static.heart.co.uk/assets_v4r/heart/img/favicon-196x196.png',
+                  }
+            }
             style={styles.faviconImage}
             key={station.stationuuid}
             onError={() =>
@@ -63,8 +70,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 12,
   },
   faviconImage: {
-    height: 110,
-    width: 110,
+    height: 95,
+    width: 95,
     borderRadius: 17,
   },
   stationContainer: {
@@ -84,7 +91,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   card: {
-    height: 120,
+    height: 105,
     width: '99.2%',
     borderRadius: 15,
   },

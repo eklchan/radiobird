@@ -7,10 +7,12 @@ import News from '../screens/HomeTabScreens/News';
 import Music from '../screens/HomeTabScreens/Music';
 import Sport from '../screens/HomeTabScreens/Sport';
 
-const HomeTopTabs = () => {
+const HomeTopTabs = ({ navigation }) => {
   const initialLayout = { width: Dimensions.get('window').width };
 
-  const First = ({ jumpTo }) => <ForYou jumpTo={jumpTo} />;
+  const First = ({ jumpTo }) => (
+    <ForYou jumpTo={jumpTo} navigation={navigation} />
+  );
 
   const Second = () => <News />;
 

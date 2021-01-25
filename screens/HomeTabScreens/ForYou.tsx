@@ -27,7 +27,7 @@ const sortedLocalStations: Array<object> = [...stationsuk].sort(
   (a, b) => a.votes - b.votes,
 );
 
-const ForYou = ({ jumpTo }) => {
+const ForYou = ({ jumpTo, navigation }) => {
   let [fontsLoaded] = useFonts({
     Lato_900Black,
     Lato_700Bold,
@@ -98,12 +98,12 @@ const ForYou = ({ jumpTo }) => {
               activeOpacity={buttonOpacity}
               underlayColor={underlayColour}
               onPress={() => {
-                console.log('HAPPY');
+                navigation.navigate('recents');
               }}
             >
               <View style={styles.headerWrap}>
                 <Text style={styles.headerText}>Recent Listens</Text>
-                <Icon name="arrow-forward" style={{ fontSize: 23 }} />
+                <Icon name="arrow-forward" style={styles.arrowForward} />
               </View>
             </TouchableHighlight>
             <FlatList
@@ -126,12 +126,12 @@ const ForYou = ({ jumpTo }) => {
           activeOpacity={buttonOpacity}
           underlayColor={underlayColour}
           onPress={() => {
-            console.log('HAPPY');
+            console.log('happy');
           }}
         >
           <View style={styles.headerWrap}>
             <Text style={styles.headerText}>National</Text>
-            <Icon name="arrow-forward" style={{ fontSize: 23 }} />
+            <Icon name="arrow-forward" style={styles.arrowForward} />
           </View>
         </TouchableHighlight>
         <FlatList
@@ -160,7 +160,7 @@ const ForYou = ({ jumpTo }) => {
         >
           <View style={styles.headerWrap}>
             <Text style={styles.headerText}>Local </Text>
-            <Icon name="arrow-forward" style={{ fontSize: 23 }} />
+            <Icon name="arrow-forward" style={styles.arrowForward} />
           </View>
         </TouchableHighlight>
         <FlatList
@@ -269,6 +269,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginLeft: 13,
     backgroundColor: '#437ed1',
+  },
+  arrowForward: {
+    fontSize: 22,
   },
 });
 
