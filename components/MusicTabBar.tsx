@@ -14,12 +14,15 @@ import { Badge, Button } from 'native-base';
 import { formatTime } from '../utils/utils';
 
 const MusicTabBar = ({ navigation }) => {
-  const station: any = useUrl();
+  let station: any = useUrl();
   const loadingAudio: boolean = useLoadingContext();
   const handlePauseSound: Function = useHandlePauseContext();
   const handlePlaySound: Function = useHandlePlayContext();
   const audioPlaying: boolean = useAudioPlayingContext();
   const sleepTime: number = useSleepTimeContext();
+  if (!station) {
+    station = {};
+  }
 
   const [source, setSource] = useState(station.favicon);
 
@@ -37,7 +40,7 @@ const MusicTabBar = ({ navigation }) => {
 
   return (
     <>
-      {station && (
+      {!!station.name && (
         <View style={styles.container}>
           <TouchableOpacity
             onPress={() => {

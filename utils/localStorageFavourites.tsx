@@ -14,6 +14,7 @@ export const storeFavourites = async (value) => {
   try {
     const jsonValue = JSON.stringify(value);
     await AsyncStorage.setItem('favouriteRadios', jsonValue);
+    return true;
   } catch (e) {
     console.log('error STORE', e);
   }
@@ -45,6 +46,11 @@ export const deleteFromFavourites = async (value) => {
     favourites.splice(stationIndex, 1);
   }
   storeFavourites(favourites);
+};
+
+export const deleteAllFavourties = async () => {
+  const resp = await storeFavourites([]);
+  return resp;
 };
 
 export const favouritedOrNot = async (value) => {

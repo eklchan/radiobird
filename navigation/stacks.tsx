@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import FavouritesScreen from '../screens/FavouritesScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import SearchScreen from '../screens/SearchScreen';
@@ -11,7 +11,7 @@ import RecentsScreen from '../screens/RecentsScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import { HeaderBackButton } from '@react-navigation/stack';
 import { View, Text } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Input, Button } from 'native-base';
 import 'react-native-console-time-polyfill';
 
@@ -132,18 +132,43 @@ const HomeScreens = ({ navigation }) => {
 };
 
 const FavouriteScreens = ({ navigation }) => {
+  const [deleteModal, setDeleteModal] = useState(false);
+
   return (
     <FavouritesStack.Navigator>
       <FavouritesStack.Screen
         name="search"
-        component={FavouritesScreen}
         options={{
-          headerTitle: 'My Favourites',
+          headerTitle: 'Favourites',
           headerRight: () => {
-            return <SearchButton navigation={navigation} />;
+            return (
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Button
+                  transparent
+                  style={{ marginRight: 11 }}
+                  onPress={() => {
+                    setDeleteModal(true);
+                  }}
+                >
+                  <MaterialCommunityIcons
+                    name="delete"
+                    size={24}
+                    color="black"
+                  />
+                </Button>
+                <SearchButton navigation={navigation} />
+              </View>
+            );
           },
         }}
-      />
+      >
+        {() => (
+          <FavouritesScreen
+            deleteModal={deleteModal}
+            setDeleteModal={setDeleteModal}
+          />
+        )}
+      </FavouritesStack.Screen>
     </FavouritesStack.Navigator>
   );
 };

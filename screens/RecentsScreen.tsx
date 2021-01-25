@@ -1,4 +1,4 @@
-import { Button } from 'native-base';
+import { Button, Spinner } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import {
   Text,
@@ -17,6 +17,7 @@ import { useUrlUpdate } from '../Context';
 const RecentsScreen = () => {
   const [recentListensArray, setRecentListensArray] = useState<object[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [loadingState, setLoadingState] = useState(true);
   const isFocused = useIsFocused();
   const setStation = useUrlUpdate();
 
@@ -25,6 +26,7 @@ const RecentsScreen = () => {
       let recentListens = await getRecents();
       recentListens = recentListens.slice(0, 10);
       setRecentListensArray(recentListens);
+      setLoadingState(false);
     };
     fetchRecents();
   }, [isFocused]);
@@ -48,60 +50,72 @@ const RecentsScreen = () => {
       setRecentListensArray([]);
     }
   };
-
-  return (
-    <View style={styles.container}>
-      {recentListensArray.length > 0 ? (
-        <>
-          <FlatList
-            ListHeaderComponent={
-              <Button style={styles.clearAllButton} onPress={handleClearButton}>
-                <Text style={styles.buttonText}>Clear All</Text>
-              </Button>
-            }
-            maxToRenderPerBatch={5}
-            initialNumToRender={5}
-            removeClippedSubviews={true}
-            showsVerticalScrollIndicator={false}
-            data={recentListensArray}
-            renderItem={({ item }) => (
-              <TouchableOpacity onPress={() => handleStationPress(item)}>
-                <ListItemCard station={item} />
-              </TouchableOpacity>
-            )}
-            keyExtractor={(item) => item.stationuuid}
-          />
-          <Modal animationType="fade" transparent={true} visible={modalVisible}>
-            <TouchableWithoutFeedback onPress={handleHideModal}>
-              <View style={styles.modalOverlay} />
-            </TouchableWithoutFeedback>
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <Text style={styles.modalText}>Are you sure?</Text>
-                <View style={styles.modalButtonsWrap}>
-                  <Button
-                    style={styles.cancelButton}
-                    onPress={handleHideModal}
-                    bordered
-                  >
-                    <Text style={styles.modalButtonText}>CANCEL</Text>
-                  </Button>
-                  <Button
-                    style={styles.yesClearButton}
-                    onPress={handleClearAll}
-                  >
-                    <Text style={styles.modalButtonText2}>CLEAR ALL</Text>
-                  </Button>
+  if (loadingState) {
+    return <Spinner style={styles.loadingSpinner} />;
+  } else {
+    return (
+      <View style={styles.container}>
+        {recentListensArray.length > 0 ? (
+          <>
+            <FlatList
+              ListHeaderComponent={
+                <Button
+                  style={styles.clearAllButton}
+                  onPress={handleClearButton}
+                >
+                  <Text style={styles.buttonText}>Clear All</Text>
+                </Button>
+              }
+              maxToRenderPerBatch={5}
+              initialNumToRender={5}
+              removeClippedSubviews={true}
+              showsVerticalScrollIndicator={false}
+              data={recentListensArray}
+              renderItem={({ item }) => (
+                <TouchableOpacity onPress={() => handleStationPress(item)}>
+                  <ListItemCard station={item} />
+                </TouchableOpacity>
+              )}
+              keyExtractor={(item) => item.stationuuid}
+            />
+            <Modal
+              animationType="fade"
+              transparent={true}
+              visible={modalVisible}
+            >
+              <TouchableWithoutFeedback onPress={handleHideModal}>
+                <View style={styles.modalOverlay} />
+              </TouchableWithoutFeedback>
+              <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                  <Text style={styles.modalText}>Are you sure?</Text>
+                  <View style={styles.modalButtonsWrap}>
+                    <Button
+                      style={styles.cancelButton}
+                      onPress={handleHideModal}
+                      bordered
+                    >
+                      <Text style={styles.modalButtonText}>CANCEL</Text>
+                    </Button>
+                    <Button
+                      style={styles.yesClearButton}
+                      onPress={handleClearAll}
+                    >
+                      <Text style={styles.modalButtonText2}>CLEAR ALL</Text>
+                    </Button>
+                  </View>
                 </View>
               </View>
-            </View>
-          </Modal>
-        </>
-      ) : (
-        <Text style={styles.noStationText}>No Stations Recently Listened</Text>
-      )}
-    </View>
-  );
+            </Modal>
+          </>
+        ) : (
+          <Text style={styles.noStationText}>
+            No Stations Recently Listened
+          </Text>
+        )}
+      </View>
+    );
+  }
 };
 
 export default RecentsScreen;
@@ -184,5 +198,9 @@ const styles = StyleSheet.create({
     marginTop: 30,
     fontSize: 18,
     alignSelf: 'center',
+  },
+  loadingSpinner: {
+    alignSelf: 'center',
+    marginTop: 10,
   },
 });
