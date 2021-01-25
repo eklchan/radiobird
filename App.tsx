@@ -1,4 +1,5 @@
 // import { StatusBar } from 'expo-status-bar';
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { UrlProvider } from './Context';
@@ -8,7 +9,9 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <UrlProvider>
-        <RootNavigation />
+        <NavigationContainer>
+          <RootNavigation />
+        </NavigationContainer>
       </UrlProvider>
     </SafeAreaProvider>
   );

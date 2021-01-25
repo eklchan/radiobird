@@ -57,39 +57,39 @@ const ForYou = () => {
         {recentArray.length > 0 && (
           <>
             <Text style={styles.headerText}>Recently Listened</Text>
-            <FlatList
+            <ScrollView
               horizontal={true}
               style={styles.stationWrapper}
-              // showsHorizontalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
             >
               {renderRecents}
-            </FlatList>
+            </ScrollView>
           </>
         )}
         <Text style={styles.headerText}>National</Text>
-        <FlatList
+        <ScrollView
           horizontal={true}
           style={styles.stationWrapper}
-          // showsHorizontalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
         >
           {renderStations}
-        </FlatList>
+        </ScrollView>
         <Text style={styles.headerText}>Local Radio</Text>
-        <FlatList
+        <ScrollView
           horizontal={true}
           style={styles.stationWrapper}
-          // showsHorizontalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
         >
           {renderStations}
-        </FlatList>
+        </ScrollView>
         <Text style={styles.headerText}>Listen By Category</Text>
-        <FlatList
+        <ScrollView
           horizontal={true}
           style={styles.stationWrapper}
-          // showsHorizontalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
         >
           <Text>CATEGORY</Text>
-        </FlatList>
+        </ScrollView>
       </ScrollView>
     );
   }

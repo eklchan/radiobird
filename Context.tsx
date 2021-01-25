@@ -94,7 +94,6 @@ export const UrlProvider = ({ children }: any) => {
             false,
           );
           const play = await sound.playAsync();
-          // console.log(play, 'RES');
           setLoadingAudio(false);
           setAudioPlaying(true);
           addToRecents(station);

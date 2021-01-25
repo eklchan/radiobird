@@ -9,6 +9,7 @@ import { Ionicons, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Button, Text, Picker, Icon } from 'native-base';
 import SetLocationScreen from './screens/SetLocationScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AddAlarmScreen from './screens/AddAlarmScreen';
 // import DropDownPicker from 'react-native-dropdown-picker';
 
 const RootStack = createStackNavigator();
@@ -26,6 +27,10 @@ const RootNavigation = () => {
     } catch (error) {
       console.log(error, 'SHARE PRESS');
     }
+  };
+
+  const handleAlarmPress = () => {
+    console.log('ALARM PRESS');
   };
 
   useEffect(() => {
@@ -47,7 +52,7 @@ const RootNavigation = () => {
   });
 
   return (
-    <NavigationContainer>
+    <>
       <RootStack.Navigator>
         {localStorageRadio ? (
           <>
@@ -64,7 +69,11 @@ const RootNavigation = () => {
                 headerRight: () => {
                   return (
                     <View style={styles.iconsContainer}>
-                      <Button style={styles.buttonsContainer} transparent>
+                      <Button
+                        style={styles.buttonsContainer}
+                        onPress={handleAlarmPress}
+                        transparent
+                      >
                         <MaterialCommunityIcons
                           name="alarm-plus"
                           size={24}
@@ -81,10 +90,10 @@ const RootNavigation = () => {
                       {/* <TouchableWithoutFeedback
                         onPress={() => setMenuVisible(false)}
                         style={styles.touchable}
-                      >
+                        >
                         <View style={styles.modalOverlay} />
-                      </TouchableWithoutFeedback>
-                      <DropDownPicker
+                        </TouchableWithoutFeedback>
+                        <DropDownPicker
                         items={[
                           { label: 'USA', value: 'usa', hidden: true },
                           { label: 'UK', value: 'uk' },
@@ -106,17 +115,22 @@ const RootNavigation = () => {
                         style={styles.buttonsContainer}
                         // onPress={() => setMenuVisible(true)}
                         transparent
-                      >
+                        >
                         <Entypo
-                          name="dots-three-vertical"
-                          size={22}
-                          color="black"
+                        name="dots-three-vertical"
+                        size={22}
+                        color="black"
                         />
                       </Button> */}
                     </View>
                   );
                 },
               }}
+            />
+            <RootStack.Screen
+              name="addAlarm"
+              component={AddAlarmScreen}
+              options={{ headerShown: false }}
             />
           </>
         ) : (
@@ -127,7 +141,7 @@ const RootNavigation = () => {
           />
         )}
       </RootStack.Navigator>
-    </NavigationContainer>
+    </>
   );
 };
 

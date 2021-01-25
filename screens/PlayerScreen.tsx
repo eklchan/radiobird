@@ -42,7 +42,6 @@ const PlayerScreen = () => {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [favourited, setFavourited] = useState(false);
-  console.log(favourited, 'FAVE OR NOT');
 
   const uniqueTags: Array<string> = Array.from(
     new Set(station.tags.split(',')),
@@ -52,7 +51,6 @@ const PlayerScreen = () => {
     let storageResponse: Array<object>;
     const fetchData = async () => {
       const storageResponse = await favouritedOrNot(station);
-      console.log(storageResponse, 'RESPONSE');
       if (storageResponse) {
         setFavourited(true);
       } else {
