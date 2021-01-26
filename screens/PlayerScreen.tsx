@@ -22,14 +22,22 @@ import {
   AntDesign,
   Ionicons,
   MaterialCommunityIcons,
+  MaterialIcons,
 } from '@expo/vector-icons';
-import { Badge, Button } from 'native-base';
+import { Badge, Button, Spinner } from 'native-base';
 import { formatTime } from '../utils/utils';
 import {
   addToFavourites,
   favouritedOrNot,
   deleteFromFavourites,
 } from '../utils/localStorageFavourites';
+import {
+  useFonts,
+  Lato_900Black,
+  Lato_700Bold,
+  Lato_400Regular,
+} from '@expo-google-fonts/lato';
+import * as Linking from 'expo-linking';
 
 const PlayerScreen = () => {
   const station: any = useUrl();
@@ -42,6 +50,11 @@ const PlayerScreen = () => {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [favourited, setFavourited] = useState(false);
+  let [fontsLoaded] = useFonts({
+    Lato_900Black,
+    Lato_700Bold,
+    Lato_400Regular,
+  });
 
   const uniqueTags: Array<string> = Array.from(
     new Set(station.tags.split(',')),
@@ -113,130 +126,148 @@ const PlayerScreen = () => {
     setSleepTime(-1);
   };
 
-  return (
-    <View style={styles.container}>
-      <Image
-        source={{ uri: `${station.favicon}` }}
-        key={station.name}
-        style={styles.image}
-      />
-      <Text style={styles.stationName}>{station.name}</Text>
-      <View style={styles.tagContainer}>{renderTags}</View>
-      <Text style={styles.countryText}>{station.country}</Text>
-      <View style={styles.languageContainer}>{renderLanguages}</View>
-      <Text>{station.bitrate} kbps</Text>
-      <View style={styles.buttonContainers}>
-        <TouchableOpacity onPress={handleStarPress}>
-          {favourited ? (
-            <AntDesign
-              name="star"
-              size={26}
-              color="black"
-              style={styles.starIcon}
-            />
-          ) : (
-            <AntDesign
-              name="staro"
-              size={26}
-              color="black"
-              style={styles.starIcon}
+  const handleHomepagePress = () => {
+    Linking.openURL(station.homepage);
+  };
+
+  if (!fontsLoaded) {
+    return <Spinner />;
+  } else {
+    return (
+      <View style={styles.container}>
+        {!!station.homepage && (
+          <Button
+            style={styles.homepageVisitButton}
+            transparent
+            onPress={handleHomepagePress}
+          >
+            <Text style={styles.visitHomepageText}>Visit Station Homepage</Text>
+            <MaterialIcons name="navigate-next" size={19} color="black" />
+          </Button>
+        )}
+        <Image
+          source={{ uri: `${station.favicon}` }}
+          key={station.name}
+          style={styles.image}
+        />
+        <Text style={styles.stationName}>{station.name}</Text>
+        <View style={styles.tagContainer}>{renderTags}</View>
+        <Text style={styles.countryText}>{station.country}</Text>
+        <View style={styles.languageContainer}>{renderLanguages}</View>
+        {station.bitrate > 0 && <Text>{station.bitrate} kbps</Text>}
+        <View style={styles.buttonContainers}>
+          <TouchableOpacity onPress={handleStarPress}>
+            {favourited ? (
+              <AntDesign
+                name="star"
+                size={26}
+                color="black"
+                style={styles.starIcon}
+              />
+            ) : (
+              <AntDesign
+                name="staro"
+                size={26}
+                color="black"
+                style={styles.starIcon}
+              />
+            )}
+          </TouchableOpacity>
+          {audioPlaying && !loadingAudio && (
+            <Button
+              style={styles.playPauseButton}
+              onPress={handlePausePress}
+              rounded
+            >
+              <Ionicons
+                name="pause-sharp"
+                size={26}
+                color="black"
+                style={styles.playPauseIcon}
+              />
+            </Button>
+          )}
+          {!audioPlaying && !loadingAudio && (
+            <Button
+              style={styles.playPauseButton}
+              onPress={handlePlayPress}
+              rounded
+            >
+              <AntDesign
+                name="caretright"
+                size={24}
+                color="black"
+                style={styles.playPauseIcon}
+              />
+            </Button>
+          )}
+          {loadingAudio && (
+            <ActivityIndicator
+              size="large"
+              color="#00ff00"
+              style={styles.playPauseButton}
             />
           )}
-        </TouchableOpacity>
-        {audioPlaying && !loadingAudio && (
-          <Button
-            style={styles.playPauseButton}
-            onPress={handlePausePress}
-            rounded
-          >
-            <Ionicons
-              name="pause-sharp"
-              size={26}
-              color="black"
-              style={styles.playPauseIcon}
-            />
-          </Button>
-        )}
-        {!audioPlaying && !loadingAudio && (
-          <Button
-            style={styles.playPauseButton}
-            onPress={handlePlayPress}
-            rounded
-          >
-            <AntDesign
-              name="caretright"
+          <TouchableOpacity onPress={handleShowModal}>
+            <MaterialCommunityIcons
+              name="sleep"
               size={24}
               color="black"
-              style={styles.playPauseIcon}
+              style={styles.sleepIcon}
             />
-          </Button>
-        )}
-        {loadingAudio && (
-          <ActivityIndicator
-            size="large"
-            color="#00ff00"
-            style={styles.playPauseButton}
-          />
-        )}
-        <TouchableOpacity onPress={handleShowModal}>
-          <MaterialCommunityIcons
-            name="sleep"
-            size={24}
-            color="black"
-            style={styles.sleepIcon}
-          />
-        </TouchableOpacity>
-      </View>
-      <Modal animationType="fade" transparent={true} visible={modalVisible}>
-        <TouchableWithoutFeedback onPress={handleHideModal}>
-          <View style={styles.modalOverlay} />
-        </TouchableWithoutFeedback>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            {sleepTime > 0 ? (
-              <Text style={styles.modalText}>
-                {' '}
-                Time Remaining: {formatTime(sleepTime)}
-              </Text>
-            ) : (
-              <Text style={styles.modalText}>No Sleep Timer Set</Text>
-            )}
-            <TouchableOpacity
-              style={{ ...styles.openButton }}
-              onPress={() => handleTimerAdd(10)}
-            >
-              <Text style={styles.modalSubText}>Add 1 Minute</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{ ...styles.openButton }}
-              onPress={() => handleTimerAdd(300)}
-            >
-              <Text style={styles.modalSubText}>Add 5 Minutes</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{ ...styles.openButton }}
-              onPress={() => handleTimerAdd(900)}
-            >
-              <Text style={styles.modalSubText}>Add 15 Minutes</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{ ...styles.openButton }}
-              onPress={handleTimerDisable}
-            >
-              <Text style={styles.modalSubText}>Disable Sleep Timer</Text>
-            </TouchableOpacity>
-          </View>
+          </TouchableOpacity>
         </View>
-      </Modal>
-      {sleepTime > 0 && (
-        <Badge style={styles.sleepBadge}>
-          <Text style={styles.sleepBadgeText}>
-            Sleep Timer: {formatTime(sleepTime)}
-          </Text>
-        </Badge>
-      )}
-    </View>
-  );
+        <Modal animationType="fade" transparent={true} visible={modalVisible}>
+          <TouchableWithoutFeedback onPress={handleHideModal}>
+            <View style={styles.modalOverlay} />
+          </TouchableWithoutFeedback>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              {sleepTime > 0 ? (
+                <Text style={styles.modalText}>
+                  {' '}
+                  Time Remaining: {formatTime(sleepTime)}
+                </Text>
+              ) : (
+                <Text style={styles.modalText}>No Sleep Timer Set</Text>
+              )}
+              <TouchableOpacity
+                style={{ ...styles.openButton }}
+                onPress={() => handleTimerAdd(10)}
+              >
+                <Text style={styles.modalSubText}>Add 1 Minute</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{ ...styles.openButton }}
+                onPress={() => handleTimerAdd(300)}
+              >
+                <Text style={styles.modalSubText}>Add 5 Minutes</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{ ...styles.openButton }}
+                onPress={() => handleTimerAdd(900)}
+              >
+                <Text style={styles.modalSubText}>Add 15 Minutes</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{ ...styles.openButton }}
+                onPress={handleTimerDisable}
+              >
+                <Text style={styles.modalSubText}>Disable Sleep Timer</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+        {sleepTime > 0 && (
+          <Badge style={styles.sleepBadge}>
+            <Text style={styles.sleepBadgeText}>
+              Sleep Timer: {formatTime(sleepTime)}
+            </Text>
+          </Badge>
+        )}
+      </View>
+    );
+  }
 };
 
 export default PlayerScreen;
@@ -274,10 +305,14 @@ const styles = StyleSheet.create({
   countryText: {
     textAlign: 'center',
     marginVertical: 2,
+    fontFamily: 'Lato_400Regular',
+    fontSize: 15,
   },
   languageText: {
     textTransform: 'capitalize',
     marginVertical: 2,
+    fontFamily: 'Lato_400Regular',
+    fontSize: 14,
   },
   languageContainer: {
     flexDirection: 'row',
@@ -340,8 +375,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   stationName: {
-    fontWeight: 'bold',
-    fontSize: 20,
+    fontFamily: 'Lato_700Bold',
+    fontSize: 21,
     marginVertical: 10,
   },
   sleepBadge: {
@@ -352,11 +387,22 @@ const styles = StyleSheet.create({
   },
   sleepBadgeText: {
     padding: 10,
+    fontFamily: 'Lato_400Regular',
   },
   sleepIcon: {
     padding: 3,
   },
   starIcon: {
     padding: 3,
+  },
+  homepageVisitButton: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    flexDirection: 'row',
+  },
+  visitHomepageText: {
+    fontSize: 14,
+    fontFamily: 'Lato_400Regular',
   },
 });

@@ -8,6 +8,8 @@ import AboutUsScreen from '../screens/AboutUsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import ContactScreen from '../screens/ContactScreen';
 import RecentsScreen from '../screens/RecentsScreen';
+import NationalScreen from '../screens/NationalScreen';
+import LocalScreen from '../screens/LocalScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import { HeaderBackButton } from '@react-navigation/stack';
 import { View, Text } from 'react-native';
@@ -106,7 +108,7 @@ const SearchScreens = ({ navigation }) => {
 
 const HomeScreens = ({ navigation }) => {
   return (
-    <HomeStack.Navigator>
+    <HomeStack.Navigator detachInactiveScreens={true}>
       <HomeStack.Screen
         name="home"
         component={HomeTopTabs}
@@ -122,6 +124,26 @@ const HomeScreens = ({ navigation }) => {
         component={RecentsScreen}
         options={{
           headerTitle: 'Recent Listens',
+          headerRight: () => {
+            return <SearchButton navigation={navigation} />;
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="national"
+        component={NationalScreen}
+        options={{
+          headerTitle: 'UK National Radio',
+          headerRight: () => {
+            return <SearchButton navigation={navigation} />;
+          },
+        }}
+      />
+      <HomeStack.Screen
+        name="local"
+        component={LocalScreen}
+        options={{
+          headerTitle: 'Local London Radio',
           headerRight: () => {
             return <SearchButton navigation={navigation} />;
           },

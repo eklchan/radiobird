@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import ForYou from '../screens/HomeTabScreens/ForYou';
@@ -10,15 +10,14 @@ import Sport from '../screens/HomeTabScreens/Sport';
 const HomeTopTabs = ({ navigation }) => {
   const initialLayout = { width: Dimensions.get('window').width };
 
-  const First = ({ jumpTo }) => (
-    <ForYou jumpTo={jumpTo} navigation={navigation} />
-  );
+  const First = ({ jumpTo }) =>
+    useMemo(() => <ForYou jumpTo={jumpTo} navigation={navigation} />, [jumpTo]);
 
-  const Second = () => <News />;
+  const Second = () => useMemo(() => <News />, []);
 
-  const Third = () => <Music />;
+  const Third = () => useMemo(() => <Music />, []);
 
-  const Fourth = () => <Sport />;
+  const Fourth = () => useMemo(() => <Sport />, []);
 
   const [index, setIndex] = useState(0);
   const [routes] = useState([
@@ -52,6 +51,7 @@ const HomeTopTabs = ({ navigation }) => {
       renderTabBar={renderTabBar}
       initialLayout={initialLayout}
       swipeEnabled={false}
+      removeClippedSubviews={true}
       lazy={true}
       style={styles.views}
     />

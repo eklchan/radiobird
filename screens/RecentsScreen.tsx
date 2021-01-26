@@ -28,7 +28,9 @@ const RecentsScreen = () => {
       setRecentListensArray(recentListens);
       setLoadingState(false);
     };
-    fetchRecents();
+    if (isFocused) {
+      fetchRecents();
+    }
   }, [isFocused]);
 
   const handleStationPress = async (clickedStation: object) => {

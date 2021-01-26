@@ -126,7 +126,7 @@ const ForYou = ({ jumpTo, navigation }) => {
           activeOpacity={buttonOpacity}
           underlayColor={underlayColour}
           onPress={() => {
-            console.log('happy');
+            navigation.navigate('national');
           }}
         >
           <View style={styles.headerWrap}>
@@ -155,7 +155,7 @@ const ForYou = ({ jumpTo, navigation }) => {
           activeOpacity={buttonOpacity}
           underlayColor={underlayColour}
           onPress={() => {
-            console.log('HAPPY');
+            navigation.navigate('local');
           }}
         >
           <View style={styles.headerWrap}>

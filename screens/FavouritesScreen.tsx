@@ -7,7 +7,6 @@ import {
   Modal,
 } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {
   getFavourites,
   deleteAllFavourties,
@@ -68,14 +67,12 @@ const FavouritesScreen: FunctionComponent<FavouritesScreenProps> = ({
 
   const renderFavouritesList = favouritesArray.map((station) => {
     return (
-      <Swipeable>
-        <TouchableOpacity
-          key={station.stationuuid}
-          onPress={() => handleSetStation(station)}
-        >
-          <ListItemCard station={station} />
-        </TouchableOpacity>
-      </Swipeable>
+      <TouchableOpacity
+        key={station.stationuuid}
+        onPress={() => handleSetStation(station)}
+      >
+        <ListItemCard station={station} />
+      </TouchableOpacity>
     );
   });
 
