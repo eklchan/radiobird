@@ -38,6 +38,7 @@ import {
   Lato_400Regular,
 } from '@expo-google-fonts/lato';
 import * as Linking from 'expo-linking';
+const Logo = require('../assets/radioIcon.png');
 
 const PlayerScreen = () => {
   const station: any = useUrl();
@@ -50,6 +51,7 @@ const PlayerScreen = () => {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [favourited, setFavourited] = useState(false);
+  const [imageSource, setImageSource] = useState(station.favicon);
   let [fontsLoaded] = useFonts({
     Lato_900Black,
     Lato_700Bold,
@@ -146,7 +148,8 @@ const PlayerScreen = () => {
           </Button>
         )}
         <Image
-          source={{ uri: `${station.favicon}` }}
+          source={station.favicon ? { uri: `${imageSource}` } : Logo}
+          onError={() => setImageSource('')}
           key={station.name}
           style={styles.image}
         />

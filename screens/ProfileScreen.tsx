@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import {
   Thumbnail,
   Card,
@@ -9,10 +9,7 @@ import {
   Right,
   Icon,
 } from 'native-base';
-import {
-  TouchableHighlight,
-  TouchableOpacity,
-} from 'react-native-gesture-handler';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 import {
   useFonts,
   Lato_900Black,
@@ -39,14 +36,11 @@ const ProfileScreen = ({ navigation }) => {
         <List>
           <ListItem>
             <View style={styles.rowOne}>
-              <Card style={styles.avatarCard}>
-                <Thumbnail
-                  large
-                  circular
-                  source={{ uri: 'https://i.pravatar.cc/300' }}
-                />
-              </Card>
-              <Text style={styles.mainName}>edwardklc1993@gmail.com</Text>
+              <Image
+                source={require('../assets/RadioBirdPic.png')}
+                style={styles.logoStyle}
+              />
+              <Text style={styles.versionText}>Version 1.0</Text>
             </View>
           </ListItem>
           <TouchableHighlight
@@ -106,13 +100,12 @@ export default ProfileScreen;
 const styles = StyleSheet.create({
   container: {
     paddingTop: 15,
-    // marginHorizontal: 15,
   },
   rowOne: {
     width: '100%',
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignSelf: 'center',
     height: 200,
   },
@@ -127,5 +120,13 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontFamily: 'Lato_700Bold',
     paddingVertical: 2,
+  },
+  logoStyle: {
+    height: 150,
+    width: 190,
+  },
+  versionText: {
+    fontSize: 16,
+    marginTop: 11,
   },
 });

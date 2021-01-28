@@ -2,6 +2,7 @@ import React, { useEffect, useState, FunctionComponent } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Card } from 'native-base';
+const Logo = require('../assets/radioIcon.png');
 
 type ListItemCardProps = {
   station: object;
@@ -12,13 +13,9 @@ const ListItemCard: FunctionComponent<ListItemCardProps> = ({
   station,
   setStation,
 }) => {
-  const [source, setSource] = useState(
-    station.favicon ? station.favicon : 'nofavicon',
-  );
+  const [source, setSource] = useState(station.favicon);
 
-  const handleCardPress = () => {
-    // setStation(station);
-  };
+  const handleCardPress = () => {};
 
   useEffect(() => {
     setSource(station.favicon);
@@ -33,21 +30,10 @@ const ListItemCard: FunctionComponent<ListItemCardProps> = ({
       <Card style={styles.card}>
         <View style={styles.stationContainer}>
           <Image
-            source={
-              source
-                ? { uri: `${source}` }
-                : {
-                    uri:
-                      'https://static.heart.co.uk/assets_v4r/heart/img/favicon-196x196.png',
-                  }
-            }
+            source={source ? { uri: `${source}` } : Logo}
             style={styles.faviconImage}
             key={station.stationuuid}
-            onError={() =>
-              setSource(
-                'https://static.heart.co.uk/assets_v4r/heart/img/favicon-196x196.png',
-              )
-            }
+            onError={() => setSource('')}
           />
           <View style={styles.stationTextWrap}>
             <View style={styles.stationNameWrap}>

@@ -12,7 +12,7 @@ import NationalScreen from '../screens/NationalScreen';
 import LocalScreen from '../screens/LocalScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import { HeaderBackButton } from '@react-navigation/stack';
-import { View, Text } from 'react-native';
+import { View, Image, Text } from 'react-native';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Input, Button } from 'native-base';
 import 'react-native-console-time-polyfill';
@@ -113,7 +113,19 @@ const HomeScreens = ({ navigation }) => {
         name="home"
         component={HomeTopTabs}
         options={{
-          headerTitle: 'Home Screen',
+          headerTitle: () => (
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Image
+                source={require('../assets/RadioBirdLogo.png')}
+                style={{ height: 40, width: 43 }}
+              />
+              <Text
+                style={{ fontWeight: 'bold', fontSize: 17, marginLeft: 15 }}
+              >
+                RadioBird
+              </Text>
+            </View>
+          ),
           headerRight: () => {
             return <SearchButton navigation={navigation} />;
           },

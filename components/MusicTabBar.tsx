@@ -12,6 +12,7 @@ import {
 import { AntDesign, Ionicons, FontAwesome } from '@expo/vector-icons';
 import { Badge, Button } from 'native-base';
 import { formatTime } from '../utils/utils';
+const Logo = require('../assets/radioIcon.png');
 
 const MusicTabBar = ({ navigation }) => {
   let station: any = useUrl();
@@ -49,14 +50,8 @@ const MusicTabBar = ({ navigation }) => {
             style={styles.touchable}
           >
             <Image
-              source={
-                source
-                  ? { uri: `${source}` }
-                  : {
-                      uri:
-                        'https://static.heart.co.uk/assets_v4r/heart/img/favicon-196x196.png',
-                    }
-              }
+              source={source ? { uri: `${source}` } : Logo}
+              onError={() => setSource('')}
               style={styles.image}
             />
             <View style={styles.textWrap}>

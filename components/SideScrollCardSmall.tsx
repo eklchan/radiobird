@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
 import { Card } from 'native-base';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+const Logo = require('../assets/radioIcon.png');
 
 const SideScrollCard = ({ station }) => {
   const [source, setSource] = useState(station.favicon);
@@ -11,9 +12,7 @@ const SideScrollCard = ({ station }) => {
   }, [station.favicon]);
 
   const handleError = () => {
-    setSource(
-      'https://static.heart.co.uk/assets_v4r/heart/img/favicon-196x196.png',
-    );
+    setSource('');
   };
 
   return (
@@ -22,14 +21,7 @@ const SideScrollCard = ({ station }) => {
         <Card style={{ borderRadius: 15 }}>
           <Image
             onError={handleError}
-            source={
-              source
-                ? { uri: `${source}` }
-                : {
-                    uri:
-                      'https://static.heart.co.uk/assets_v4r/heart/img/favicon-196x196.png',
-                  }
-            }
+            source={source ? { uri: `${source}` } : Logo}
             style={styles.faviconImage}
             key={station.name}
           />

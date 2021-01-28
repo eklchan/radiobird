@@ -11,6 +11,7 @@ import {
 } from '@expo-google-fonts/lato';
 import { contains } from '../../utils/utils';
 import { useUrlUpdate } from '../../Context';
+import ListItemCard from '../../components/ListItemCard';
 
 const News = () => {
   const setStation: Function = useUrlUpdate();
@@ -32,40 +33,9 @@ const News = () => {
   const sortPopularity = filtered.sort((a, b) => b.votes - a.votes);
 
   const renderFiltered = sortPopularity.slice(0, 10).map((station, i) => {
-    const [source, setSource] = useState(
-      station.favicon ? station.favicon : 'nofavicon',
-    );
-
-    const handleCardPress = () => {
-      setStation(station);
-    };
-
     return (
-      <TouchableOpacity
-        onPress={handleCardPress}
-        activeOpacity={0.7}
-        key={station.stationuuid}
-      >
-        <Card style={styles.card}>
-          <View style={styles.stationContainer}>
-            <Image
-              source={{ uri: `${source}` }}
-              style={styles.faviconImage}
-              key={station.stationuuid}
-              onError={() =>
-                setSource(
-                  'https://static.heart.co.uk/assets_v4r/heart/img/favicon-196x196.png',
-                )
-              }
-            />
-            <View style={styles.stationTextWrap}>
-              <View style={styles.stationNameWrap}>
-                <Text style={styles.stationName}>{station.name}</Text>
-              </View>
-              <Text>{station.state}</Text>
-            </View>
-          </View>
-        </Card>
+      <TouchableOpacity activeOpacity={0.7} key={station.stationuuid}>
+        <ListItemCard station={station} />
       </TouchableOpacity>
     );
   });
