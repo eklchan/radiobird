@@ -17,6 +17,7 @@ import {
   Lato_400Regular,
 } from '@expo-google-fonts/lato';
 import AppLoading from 'expo-app-loading';
+import * as Linking from 'expo-linking';
 
 const ProfileScreen = ({ navigation }) => {
   let [fontsLoaded] = useFonts({
@@ -78,7 +79,7 @@ const ProfileScreen = ({ navigation }) => {
           <TouchableHighlight
             activeOpacity={buttonOpacity}
             underlayColor={underlayColour}
-            onPress={() => navigation.navigate('contact')}
+            onPress={() => Linking.openURL('mailto:radiobird@gmail.com')}
           >
             <ListItem>
               <Left>

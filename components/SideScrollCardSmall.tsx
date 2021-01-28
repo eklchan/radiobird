@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   station: {
     margin: 10,
     width: 95,
-    height: 150,
+    height: 160,
     overflow: 'hidden',
     alignSelf: 'center',
     flex: 1,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import FavouritesScreen from '../screens/FavouritesScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import SearchScreen from '../screens/SearchScreen';
@@ -6,16 +6,16 @@ import SearchButton from '../components/SearchButton';
 import HomeTopTabs from './toptabs';
 import AboutUsScreen from '../screens/AboutUsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import ContactScreen from '../screens/ContactScreen';
 import RecentsScreen from '../screens/RecentsScreen';
 import NationalScreen from '../screens/NationalScreen';
 import LocalScreen from '../screens/LocalScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import { HeaderBackButton } from '@react-navigation/stack';
-import { View, Image, Text } from 'react-native';
+import { View, Image, Text, StyleSheet } from 'react-native';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Input, Button } from 'native-base';
 import 'react-native-console-time-polyfill';
+import stationsuk from '../stationsuk.json';
 
 const HomeStack = createStackNavigator();
 const FavouritesStack = createStackNavigator();
@@ -24,34 +24,31 @@ const SearchStack = createStackNavigator();
 
 const SearchScreens = ({ navigation }) => {
   const [input, setInput] = useState('');
+  const [filteredStations, setFilteredStations] = useState([]);
+  const [loadingState, setLoadingState] = useState(false);
 
-  // const testStations = () => {
-  //   console.time('stations');
-  //   let store = [];
-  //   let storeObj = {};
+  useEffect(() => {
+    setLoadingState(true);
+    const getResults = async () => {
+      if (input.split('').length > 2) {
+        const filteredResults = await stationsuk.filter((station) => {
+          if (station.name.toUpperCase().includes(input.toUpperCase())) {
+            return station;
+          }
+        });
+        setFilteredStations(filteredResults);
+      } else if (!input) {
+        setFilteredStations([]);
+      }
+      setLoadingState(false);
+    };
 
-  //   allStations.forEach((station) => {
-  //     if (station.country) {
-  //       if (storeObj[station.country]) {
-  //         storeObj[station.country]++;
-  //       } else {
-  //         storeObj[station.country] = 1;
-  //       }
-  //     }
-  //     if (station.country === 'Hong Kong') {
-  //       store.push(station.name, station.url);
-  //     }
-  //   });
-
-  //   console.timeEnd('stations');
-  // };
-
-  // useEffect(() => {
-  //   testStations();
-  // });
+    getResults();
+  }, [input]);
 
   const handleInputChange = (text: string) => {
     setInput(text);
+    setLoadingState(true);
   };
 
   const handleClearInput = () => {
@@ -62,37 +59,22 @@ const SearchScreens = ({ navigation }) => {
     <SearchStack.Navigator>
       <SearchStack.Screen
         name="search"
-        component={SearchScreen}
         options={{
           headerTitle: () => {
             return (
-              <View
-                style={{
-                  width: '100%',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}
-              >
-                <HeaderBackButton
-                  style={{ marginLeft: 0 }}
-                  onPress={navigation.goBack}
-                />
+              <View style={searchStyles.inputWrap}>
+                <HeaderBackButton onPress={navigation.goBack} />
                 <Input
                   onChangeText={(text) => handleInputChange(text)}
                   value={input}
-                  placeholder="Search Radio Stations"
+                  placeholder="Search UK Radio Stations"
                 />
                 {!!input && (
                   <Button
                     rounded
                     transparent
                     onPress={handleClearInput}
-                    style={{
-                      width: 40,
-                      height: 40,
-                      justifyContent: 'center',
-                      alignSelf: 'center',
-                    }}
+                    style={searchStyles.clearButton}
                   >
                     <Ionicons name="close" size={24} color="black" />
                   </Button>
@@ -101,10 +83,32 @@ const SearchScreens = ({ navigation }) => {
             );
           },
         }}
-      />
+      >
+        {() => (
+          <SearchScreen
+            filteredStations={filteredStations}
+            input={input}
+            loadingState={loadingState}
+          />
+        )}
+      </SearchStack.Screen>
     </SearchStack.Navigator>
   );
 };
+
+const searchStyles = StyleSheet.create({
+  clearButton: {
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
+  inputWrap: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+});
 
 const HomeScreens = ({ navigation }) => {
   return (
@@ -114,16 +118,12 @@ const HomeScreens = ({ navigation }) => {
         component={HomeTopTabs}
         options={{
           headerTitle: () => (
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View style={homeStyles.headerWrap}>
               <Image
                 source={require('../assets/RadioBirdLogo.png')}
-                style={{ height: 40, width: 43 }}
+                style={homeStyles.headerLogo}
               />
-              <Text
-                style={{ fontWeight: 'bold', fontSize: 17, marginLeft: 15 }}
-              >
-                RadioBird
-              </Text>
+              <Text style={homeStyles.headerText}>RadioBird</Text>
             </View>
           ),
           headerRight: () => {
@@ -164,6 +164,12 @@ const HomeScreens = ({ navigation }) => {
     </HomeStack.Navigator>
   );
 };
+
+const homeStyles = StyleSheet.create({
+  headerWrap: { flexDirection: 'row', alignItems: 'center' },
+  headerLogo: { height: 40, width: 43 },
+  headerText: { fontWeight: 'bold', fontSize: 17, marginLeft: 15 },
+});
 
 const FavouriteScreens = ({ navigation }) => {
   const [deleteModal, setDeleteModal] = useState(false);
@@ -235,16 +241,6 @@ const ProfileScreens = ({ navigation }) => {
         component={AboutUsScreen}
         options={{
           headerTitle: 'About Us',
-          headerRight: () => {
-            return <SearchButton navigation={navigation} />;
-          },
-        }}
-      />
-      <ProfileStack.Screen
-        name="contact"
-        component={ContactScreen}
-        options={{
-          headerTitle: 'Contact',
           headerRight: () => {
             return <SearchButton navigation={navigation} />;
           },

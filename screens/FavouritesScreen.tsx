@@ -33,6 +33,7 @@ const FavouritesScreen: FunctionComponent<FavouritesScreenProps> = ({
 }) => {
   const setStation: Function = useUrlUpdate();
   const [favouritesArray, setFavouritesArray] = useState([]);
+  const [loadingState, setLoadingState] = useState(false);
   const isFocused = useIsFocused();
 
   let [fontsLoaded] = useFonts({
@@ -43,8 +44,10 @@ const FavouritesScreen: FunctionComponent<FavouritesScreenProps> = ({
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoadingState(true);
       const storageResponse = await getFavourites();
       setFavouritesArray(storageResponse);
+      setLoadingState(false);
     };
     fetchData();
   }, [isFocused]);
@@ -65,7 +68,7 @@ const FavouritesScreen: FunctionComponent<FavouritesScreenProps> = ({
     }
   };
 
-  const renderFavouritesList = favouritesArray.map((station) => {
+  const renderFavouritesList = favouritesArray.map((station, i) => {
     return (
       <TouchableOpacity
         key={station.stationuuid}
@@ -76,7 +79,7 @@ const FavouritesScreen: FunctionComponent<FavouritesScreenProps> = ({
     );
   });
 
-  if (!fontsLoaded) {
+  if (!fontsLoaded || loadingState) {
     return <Spinner style={styles.loadingSpinner} />;
   } else {
     return (
