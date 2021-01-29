@@ -45,7 +45,6 @@ const RootNavigation = () => {
         }
       };
       response = await getData();
-      console.log(response, 'DATA');
       setLocalStorageRadio(response);
     };
     localData();

@@ -111,6 +111,7 @@ const ForYou = ({ jumpTo, navigation }) => {
               initialNumToRender={5}
               removeClippedSubviews={true}
               horizontal={true}
+              windowSize={8}
               showsHorizontalScrollIndicator={false}
               data={recentArray}
               renderItem={({ item }) => (
@@ -137,6 +138,7 @@ const ForYou = ({ jumpTo, navigation }) => {
         <FlatList
           maxToRenderPerBatch={5}
           initialNumToRender={5}
+          windowSize={8}
           removeClippedSubviews={true}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
@@ -166,6 +168,7 @@ const ForYou = ({ jumpTo, navigation }) => {
         <FlatList
           maxToRenderPerBatch={5}
           initialNumToRender={5}
+          windowSize={8}
           removeClippedSubviews={true}
           horizontal={true}
           showsHorizontalScrollIndicator={false}

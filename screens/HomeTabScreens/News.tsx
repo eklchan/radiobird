@@ -33,8 +33,16 @@ const News = () => {
   const sortPopularity = filtered.sort((a, b) => b.votes - a.votes);
 
   const renderFiltered = sortPopularity.slice(0, 10).map((station, i) => {
+    const handleStationPress = () => {
+      setStation(station);
+    };
+
     return (
-      <TouchableOpacity activeOpacity={0.7} key={station.stationuuid}>
+      <TouchableOpacity
+        activeOpacity={0.7}
+        key={station.stationuuid}
+        onPress={handleStationPress}
+      >
         <ListItemCard station={station} />
       </TouchableOpacity>
     );
