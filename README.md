@@ -11,6 +11,11 @@ In addition to giving you access to the world's radio, RadioBird also includes t
 # Images 
 
 ![plot](./assets/images/homepage.png)
+![plot](./assets/images/newspage.png)
+![plot](./assets/images/playerscreen.png)
+![plot](./assets/images/homepage.png)
+![plot](./assets/images/homepage.png)
+
 
 # Tech Stack
 React Native
