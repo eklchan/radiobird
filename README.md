@@ -9,7 +9,7 @@ In addition to giving you access to the world's radio, RadioBird also includes t
  - Browse By Genre or Country
 
 # Images 
-<img src="./assets/images/homepage.png" width="18%"></img> <img src="./assets/images/newspage.png" width="18%"></img> <img src="./assets/images/playerscreen.png" width="18%"></img> <img src="./assets/images/profilepage.png" width="18%"></img> <img src="./assets/images/splashimage.png" width="18%"></img> 
+<img src="./assets/images/homepage.png" width="30%"></img> <img src="./assets/images/newspage.png" width="30%"></img> <img src="./assets/images/playerscreen.png" width="30%"></img> <img src="./assets/images/profilepage.png" width="30%"></img> <img src="./assets/images/splashimage.png" width="30%"></img> 
 
 # Tech Stack
 React Native
