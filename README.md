@@ -12,12 +12,12 @@ In addition to giving you access to the world's radio, RadioBird also includes t
  <img src="./assets/images/splashimage.png" width="30%"></img> <img src="./assets/images/homepage.png" width="30%"></img> <img src="./assets/images/newspage.png" width="30%"></img> <img src="./assets/images/playerscreen.png" width="30%"></img> <img src="./assets/images/profilepage.png" width="30%"></img> <img src="./assets/images/searchpage.png" width="30%"></img> 
 
 # Tech Stack
-React Native
-TypeScript
-NodeJS
-Expo Client
-Native Base UI Library
-Open Source Radio API
+- React Native
+- TypeScript
+- NodeJS
+- Expo Client
+- Native Base UI Library
+- Open Source Radio API
 
 *Disclaimer - RadioBird makes use your device's localStorage 
 
