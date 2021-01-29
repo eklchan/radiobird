@@ -17,14 +17,14 @@ In addition to giving you access to the world's radio, RadioBird also includes t
 - Native Base UI Library
 - Open Source Radio API
 
-*Disclaimer - RadioBird makes use your device's localStorage 
+*Disclaimer - RadioBird makes use of your device's localStorage 
 
 
 # Running RadioBird Dev Version
 
 First, make sure you have expo client app installed on your device. 
 
-1. Fork & clone this repo 🍴
+1. Fork or clone this repo 🍴
 
 2. cd into the repo & run npm i to install node modules
 
