@@ -8,6 +8,9 @@ In addition to giving you access to the world's radio, RadioBird also includes t
  - Saving your Recent Listens & Favourties
  - Browse By Genre or Country
 
+# Images 
+
+![plot](./assets/images/homepage.png)
 
 # Tech Stack
 React Native
@@ -29,5 +32,9 @@ First, make sure you have expo client app installed on your device.
 2. cd into the repo & run npm i to install node modules
 
 3. 🚀 expo start - scan the QR code and make sure both your phone & your computer are connected on the same wifi network.
+
+
+# Next Steps
+
 
 
