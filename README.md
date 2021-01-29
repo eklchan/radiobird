@@ -11,6 +11,7 @@ In addition to giving you access to the world's radio, RadioBird also includes t
 # Tech Stack
 - React Native
 - TypeScript
+- Context API
 - NodeJS
 - Expo Client
 - Native Base UI Library
