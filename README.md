@@ -35,5 +35,9 @@ First, make sure you have expo client app installed on your device.
 
 # Next Steps
 
+My love for the Radio and RadioBird doesn't stop here -
 
+Aiming to get it deployed on the Google Play Store
+Adding Podcasts
+Linking a song recognizer API so the user can find out the name of the song they're listening to! 
 
