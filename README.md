@@ -3,10 +3,10 @@ RadioBird is a simple Radio App which provides users with more than 20,000 radio
 
 In addition to giving you access to the world's radio, RadioBird also includes the following features:
 
-*Sleep Timer
-*Radio Alarm
-*Saving your Recent Listens & Favourties
-*Browse By Genre or Country
+ - Sleep Timer
+ - Radio Alarm
+ - Saving your Recent Listens & Favourties
+ - Browse By Genre or Country
 
 
 # Tech Stack
