@@ -10,14 +10,12 @@ import { Button, Text, Picker, Icon } from 'native-base';
 import SetLocationScreen from './screens/SetLocationScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AddAlarmScreen from './screens/AddAlarmScreen';
-// import DropDownPicker from 'react-native-dropdown-picker';
 
 const RootStack = createStackNavigator();
 
 const RootNavigation = () => {
   const station: any = useUrl();
   const [localStorageRadio, setLocalStorageRadio] = useState({});
-  // const [menuVisible, setMenuVisible] = useState(false);
 
   const handleSharePress = async () => {
     try {
@@ -86,41 +84,6 @@ const RootNavigation = () => {
                       >
                         <Ionicons name="share-social" size={24} color="black" />
                       </Button>
-                      {/* <TouchableWithoutFeedback
-                        onPress={() => setMenuVisible(false)}
-                        style={styles.touchable}
-                        >
-                        <View style={styles.modalOverlay} />
-                        </TouchableWithoutFeedback>
-                        <DropDownPicker
-                        items={[
-                          { label: 'USA', value: 'usa', hidden: true },
-                          { label: 'UK', value: 'uk' },
-                          { label: 'France', value: 'france' },
-                        ]}
-                        containerStyle={{
-                          width: 120,
-                          position: 'absolute',
-                          top: 20,
-                        }}
-                        isVisible={menuVisible}
-                        style={{ display: 'none' }}
-                        itemStyle={{
-                          justifyContent: 'flex-start',
-                        }}
-                        dropDownStyle={{ backgroundColor: '#fafafa' }}
-                      /> */}
-                      {/* <Button
-                        style={styles.buttonsContainer}
-                        // onPress={() => setMenuVisible(true)}
-                        transparent
-                        >
-                        <Entypo
-                        name="dots-three-vertical"
-                        size={22}
-                        color="black"
-                        />
-                      </Button> */}
                     </View>
                   );
                 },

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { Text } from 'react-native';
 
 const SettingsScreen = () => {
   return <Text>SettingsScreen</Text>;

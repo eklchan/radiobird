@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import stationsuk from '../../stationsuk.json';
-import { Card, Spinner } from 'native-base';
+import { Spinner } from 'native-base';
 import {
   useFonts,
   Lato_900Black,

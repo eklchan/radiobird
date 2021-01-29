@@ -357,8 +357,6 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   openButton: {
-    // backgroundColor: '#F194FF',
-    // borderRadius: 20,
     padding: 12,
     elevation: 2,
   },

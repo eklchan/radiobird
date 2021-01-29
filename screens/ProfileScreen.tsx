@@ -1,14 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
-import {
-  Thumbnail,
-  Card,
-  List,
-  ListItem,
-  Left,
-  Right,
-  Icon,
-} from 'native-base';
+import { List, ListItem, Left, Right, Icon } from 'native-base';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import {
   useFonts,
