@@ -8,29 +8,30 @@ In addition to giving you access to the world's radio, RadioBird also includes t
  - Saving your Recent Listens & Favourties
  - Browse By Genre or Country
 
-# Images 
-<img src="./assets/images/homepage.png" width="30%"></img> <img src="./assets/images/newspage.png" width="30%"></img> <img src="./assets/images/playerscreen.png" width="30%"></img> <img src="./assets/images/profilepage.png" width="30%"></img> <img src="./assets/images/splashimage.png" width="30%"></img> 
-
 # Tech Stack
-React Native
-TypeScript
-NodeJS
-Expo Client
-Native Base UI Library
-Open Source Radio API
+- React Native
+- TypeScript
+- Context API
+- NodeJS
+- Expo Client
+- Native Base UI Library
+- Open Source Radio API
 
-*Disclaimer - RadioBird makes use your device's localStorage 
+*Disclaimer - RadioBird makes use of your device's localStorage 
 
 
 # Running RadioBird Dev Version
 
 First, make sure you have expo client app installed on your device. 
 
-1. Fork & clone this repo 🍴
+1. Fork or clone this repo 🍴
 
 2. cd into the repo & run npm i to install node modules
 
 3. 🚀 expo start - scan the QR code and make sure both your phone & your computer are connected on the same wifi network.
+
+# Images 
+ <img src="./assets/images/splashimage.png" width="30%"></img> <img src="./assets/images/homepage.png" width="30%"></img> <img src="./assets/images/newspage.png" width="30%"></img> <img src="./assets/images/playerscreen.png" width="30%"></img> <img src="./assets/images/profilepage.png" width="30%"></img> <img src="./assets/images/searchpage.png" width="30%"></img> 
 
 
 # Next Steps
