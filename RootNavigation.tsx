@@ -51,57 +51,47 @@ const RootNavigation = () => {
   return (
     <>
       <RootStack.Navigator>
-        {localStorageRadio ? (
-          <>
-            <RootStack.Screen
-              name="Main"
-              component={MainStackScreen}
-              options={{ headerShown: false }}
-            />
-            <RootStack.Screen
-              name="Player"
-              component={PlayerScreen}
-              options={{
-                title: `${station && station.name}`,
-                headerRight: () => {
-                  return (
-                    <View style={styles.iconsContainer}>
-                      <Button
-                        style={styles.buttonsContainer}
-                        onPress={handleAlarmPress}
-                        transparent
-                      >
-                        <MaterialCommunityIcons
-                          name="alarm-plus"
-                          size={24}
-                          color="black"
-                        />
-                      </Button>
-                      <Button
-                        onPress={handleSharePress}
-                        style={styles.buttonsContainer}
-                        transparent
-                      >
-                        <Ionicons name="share-social" size={24} color="black" />
-                      </Button>
-                    </View>
-                  );
-                },
-              }}
-            />
-            <RootStack.Screen
-              name="addAlarm"
-              component={AddAlarmScreen}
-              options={{ headerShown: false }}
-            />
-          </>
-        ) : (
-          <RootStack.Screen
-            name="RadioBird"
-            component={SetLocationScreen}
-            options={{ headerTitle: 'RadioBird' }}
-          />
-        )}
+        <RootStack.Screen
+          name="Main"
+          component={MainStackScreen}
+          options={{ headerShown: false }}
+        />
+        <RootStack.Screen
+          name="Player"
+          component={PlayerScreen}
+          options={{
+            title: `${station && station.name}`,
+            headerRight: () => {
+              return (
+                <View style={styles.iconsContainer}>
+                  <Button
+                    style={styles.buttonsContainer}
+                    onPress={handleAlarmPress}
+                    transparent
+                  >
+                    <MaterialCommunityIcons
+                      name="alarm-plus"
+                      size={24}
+                      color="black"
+                    />
+                  </Button>
+                  <Button
+                    onPress={handleSharePress}
+                    style={styles.buttonsContainer}
+                    transparent
+                  >
+                    <Ionicons name="share-social" size={24} color="black" />
+                  </Button>
+                </View>
+              );
+            },
+          }}
+        />
+        <RootStack.Screen
+          name="addAlarm"
+          component={AddAlarmScreen}
+          options={{ headerShown: false }}
+        />
       </RootStack.Navigator>
     </>
   );
