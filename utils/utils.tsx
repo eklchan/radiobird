@@ -12,7 +12,7 @@ export const formatTime = (time: number) => {
   return ret;
 };
 
-export function contains(target: string, pattern: Array<string>) {
+export function contains(target: string, pattern: Array<any>) {
   let value = 0;
   pattern.forEach(function (word) {
     value = value + Number(target.includes(word));
@@ -20,7 +20,7 @@ export function contains(target: string, pattern: Array<string>) {
   return value === 1;
 }
 
-export function shuffle(array: Array<object>) {
+export function shuffle(array: Array<any>) {
   var currentIndex = array.length,
     temporaryValue,
     randomIndex;

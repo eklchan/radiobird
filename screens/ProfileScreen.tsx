@@ -10,8 +10,13 @@ import {
 } from '@expo-google-fonts/lato';
 import AppLoading from 'expo-app-loading';
 import * as Linking from 'expo-linking';
+import { Navigation } from '../interfaces';
 
-const ProfileScreen = ({ navigation }) => {
+interface navProps {
+  navigation: Navigation;
+}
+
+const ProfileScreen = ({ navigation }: navProps) => {
   let [fontsLoaded] = useFonts({
     Lato_900Black,
     Lato_700Bold,

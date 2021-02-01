@@ -7,9 +7,10 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useUrlUpdate } from '../Context';
 import stationsuk from '../stationsuk.json';
 import { shuffle } from '../utils/utils';
+import { Station } from '../interfaces';
 
 const NationalScreen = () => {
-  const [localRadioArray, setLocalRadioArray] = useState<object[]>([]);
+  const [localRadioArray, setLocalRadioArray] = useState<Array<Station>>([]);
   const [loadingState, setLoadingState] = useState(true);
   const [stations, setStations] = useState(10);
   const isFocused = useIsFocused();
@@ -32,7 +33,7 @@ const NationalScreen = () => {
   }, [isFocused]);
 
   const handleStationPress = useCallback(
-    async (clickedStation: object) => {
+    async (clickedStation: Station) => {
       await setStation(clickedStation);
     },
     [setStation],

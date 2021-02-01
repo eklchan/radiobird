@@ -16,16 +16,21 @@ import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Input, Button } from 'native-base';
 import 'react-native-console-time-polyfill';
 import stationsuk from '../stationsuk.json';
+import { Station, Navigation } from '../interfaces';
 
 const HomeStack = createStackNavigator();
 const FavouritesStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
 const SearchStack = createStackNavigator();
 
-const SearchScreens = ({ navigation }) => {
-  const [input, setInput] = useState('');
-  const [filteredStations, setFilteredStations] = useState([]);
-  const [loadingState, setLoadingState] = useState(false);
+interface navProps {
+  navigation: Navigation;
+}
+
+const SearchScreens = ({ navigation }: navProps) => {
+  const [input, setInput] = useState<string>('');
+  const [filteredStations, setFilteredStations] = useState<Array<Station>>([]);
+  const [loadingState, setLoadingState] = useState<boolean>(false);
 
   useEffect(() => {
     setLoadingState(true);
@@ -63,7 +68,7 @@ const SearchScreens = ({ navigation }) => {
           headerTitle: () => {
             return (
               <View style={searchStyles.inputWrap}>
-                <HeaderBackButton onPress={navigation.goBack} />
+                <HeaderBackButton onPress={() => navigation.goBack} />
                 <Input
                   onChangeText={(text) => handleInputChange(text)}
                   value={input}
@@ -110,7 +115,7 @@ const searchStyles = StyleSheet.create({
   },
 });
 
-const HomeScreens = ({ navigation }) => {
+const HomeScreens = ({ navigation }: navProps) => {
   return (
     <HomeStack.Navigator detachInactiveScreens={true}>
       <HomeStack.Screen
@@ -171,7 +176,7 @@ const homeStyles = StyleSheet.create({
   headerText: { fontWeight: 'bold', fontSize: 17, marginLeft: 15 },
 });
 
-const FavouriteScreens = ({ navigation }) => {
+const FavouriteScreens = ({ navigation }: navProps) => {
   const [deleteModal, setDeleteModal] = useState(false);
 
   return (
@@ -213,7 +218,7 @@ const FavouriteScreens = ({ navigation }) => {
   );
 };
 
-const ProfileScreens = ({ navigation }) => {
+const ProfileScreens = ({ navigation }: navProps) => {
   return (
     <ProfileStack.Navigator>
       <ProfileStack.Screen

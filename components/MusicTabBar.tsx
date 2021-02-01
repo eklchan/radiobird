@@ -12,9 +12,14 @@ import {
 import { AntDesign, Ionicons, FontAwesome } from '@expo/vector-icons';
 import { Badge, Button } from 'native-base';
 import { formatTime } from '../utils/utils';
+import { Navigation } from '../interfaces';
 const Logo = require('../assets/radioIcon.png');
 
-const MusicTabBar = ({ navigation }) => {
+interface props {
+  navigation: Navigation;
+}
+
+const MusicTabBar = ({ navigation }: props) => {
   let station: any = useUrl();
   const loadingAudio: boolean = useLoadingContext();
   const handlePauseSound: Function = useHandlePauseContext();

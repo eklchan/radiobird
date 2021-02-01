@@ -63,7 +63,6 @@ const PlayerScreen = () => {
   );
 
   useEffect(() => {
-    let storageResponse: Array<object>;
     const fetchData = async () => {
       const storageResponse = await favouritedOrNot(station);
       if (storageResponse) {

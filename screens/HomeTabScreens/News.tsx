@@ -32,7 +32,7 @@ const News = () => {
   });
   const sortPopularity = filtered.sort((a, b) => b.votes - a.votes);
 
-  const renderFiltered = sortPopularity.slice(0, 10).map((station, i) => {
+  const renderFiltered = sortPopularity.slice(0, 10).map((station) => {
     const handleStationPress = () => {
       setStation(station);
     };

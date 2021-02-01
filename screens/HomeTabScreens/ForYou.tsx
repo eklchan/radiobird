@@ -19,15 +19,21 @@ import { useIsFocused } from '@react-navigation/native';
 import { Ionicons, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 import SideScrollCard from '../../components/SideScrollCard';
 import SideScrollCardSmall from '../../components/SideScrollCardSmall';
+import { Navigation, Station } from '../../interfaces';
 
-const sortedUKStations: Array<object> = [...stationsuk].sort(
+const sortedUKStations: Array<Station> = [...stationsuk].sort(
   (a, b) => b.votes - a.votes,
 );
-const sortedLocalStations: Array<object> = [...stationsuk].sort(
+const sortedLocalStations: Array<Station> = [...stationsuk].sort(
   (a, b) => a.votes - b.votes,
 );
 
-const ForYou = ({ jumpTo, navigation }) => {
+interface Props {
+  navigation: Navigation;
+  jumpTo: Function;
+}
+
+const ForYou = ({ jumpTo, navigation }: Props) => {
   let [fontsLoaded] = useFonts({
     Lato_900Black,
     Lato_700Bold,
@@ -42,8 +48,9 @@ const ForYou = ({ jumpTo, navigation }) => {
   const isFocused = useIsFocused();
   const [recentArray, setRecentArray] = useState([]);
   // eslint-disable-next-line prettier/prettier
-  const [renderNationalStations, setRenderNationalStations] = useState<object[]>([]);
-  const [renderLocalStations, setRenderLocalStations] = useState<object[]>([]);
+  const [renderNationalStations, setRenderNationalStations] = useState<Array<Station | undefined>>([]);
+  // eslint-disable-next-line prettier/prettier
+  const [renderLocalStations, setRenderLocalStations] = useState<Array<Station | undefined>>([]);
   const [fetchComplete, setFetchComplete] = useState(false);
 
   useEffect(() => {
@@ -83,7 +90,7 @@ const ForYou = ({ jumpTo, navigation }) => {
     }
   };
 
-  const handleStationPress = async (clickedStation: object) => {
+  const handleStationPress = async (clickedStation: Station | undefined) => {
     await setStation(clickedStation);
   };
 
@@ -119,7 +126,7 @@ const ForYou = ({ jumpTo, navigation }) => {
                   <SideScrollCardSmall station={item} />
                 </TouchableOpacity>
               )}
-              keyExtractor={(item) => item.stationuuid}
+              keyExtractor={(item: any) => item.stationuuid}
             />
           </>
         )}
@@ -151,7 +158,7 @@ const ForYou = ({ jumpTo, navigation }) => {
               <SideScrollCard station={item} />
             </TouchableOpacity>
           )}
-          keyExtractor={(item) => item.stationuuid}
+          keyExtractor={(item: any) => item.stationuuid}
         />
         <TouchableHighlight
           activeOpacity={buttonOpacity}
@@ -181,7 +188,7 @@ const ForYou = ({ jumpTo, navigation }) => {
               <SideScrollCard station={item} />
             </TouchableOpacity>
           )}
-          keyExtractor={(item) => item.stationuuid}
+          keyExtractor={(item: any) => item.stationuuid}
         />
         <Text style={styles.headerText}>Listen By Category</Text>
         <ScrollView
@@ -229,7 +236,7 @@ const ForYou = ({ jumpTo, navigation }) => {
             />
           </Button>
         </ScrollView>
-        <View style={{ height: 15 }} />
+        <View style={styles.holder} />
       </ScrollView>
     );
   }
@@ -276,6 +283,7 @@ const styles = StyleSheet.create({
   arrowForward: {
     fontSize: 22,
   },
+  holder: { height: 15 },
 });
 
 export default ForYou;

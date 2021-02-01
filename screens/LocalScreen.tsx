@@ -7,20 +7,21 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useUrlUpdate } from '../Context';
 import stationsuk from '../stationsuk.json';
 import { shuffle } from '../utils/utils';
+import { Station } from '../interfaces';
 
 const LocalScreen = () => {
-  const [localRadioArray, setLocalRadioArray] = useState<object[]>([]);
-  const [loadingState, setLoadingState] = useState(true);
-  const [stations, setStations] = useState(10);
+  const [localRadioArray, setLocalRadioArray] = useState<Array<Station>>([]);
+  const [loadingState, setLoadingState] = useState<boolean>(true);
+  const [stations, setStations] = useState<number>(10);
   const isFocused = useIsFocused();
   const setStation = useUrlUpdate();
 
   useEffect(() => {
     const fetchLocal = async () => {
-      let localRadio = stationsuk.filter((station) => {
+      let localRadio: Array<Station> = stationsuk.filter((station) => {
         return station.state === 'London';
       });
-      let shuffledLocal = shuffle(localRadio);
+      let shuffledLocal: Array<Station> = shuffle(localRadio);
       setLocalRadioArray(shuffledLocal);
       setLoadingState(false);
     };
@@ -30,7 +31,7 @@ const LocalScreen = () => {
   }, [isFocused]);
 
   const handleStationPress = useCallback(
-    async (clickedStation: object) => {
+    async (clickedStation: Station) => {
       await setStation(clickedStation);
     },
     [setStation],

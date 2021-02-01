@@ -2,8 +2,13 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Navigation } from '../interfaces';
 
-const SearchButton = ({ navigation }) => {
+interface props {
+  navigation: Navigation;
+}
+
+const SearchButton = ({ navigation }: props) => {
   return (
     <TouchableOpacity
       style={styles.searchButton}

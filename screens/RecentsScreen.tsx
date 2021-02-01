@@ -13,9 +13,12 @@ import { useIsFocused } from '@react-navigation/native';
 import ListItemCard from '../components/ListItemCard';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useUrlUpdate } from '../Context';
+import { Station } from '../interfaces';
 
 const RecentsScreen = () => {
-  const [recentListensArray, setRecentListensArray] = useState<object[]>([]);
+  const [recentListensArray, setRecentListensArray] = useState<Array<Station>>(
+    [],
+  );
   const [modalVisible, setModalVisible] = useState(false);
   const [loadingState, setLoadingState] = useState(true);
   const isFocused = useIsFocused();
@@ -33,7 +36,7 @@ const RecentsScreen = () => {
     }
   }, [isFocused]);
 
-  const handleStationPress = async (clickedStation: object) => {
+  const handleStationPress = async (clickedStation: Station) => {
     await setStation(clickedStation);
   };
 
@@ -78,7 +81,7 @@ const RecentsScreen = () => {
                   <ListItemCard station={item} />
                 </TouchableOpacity>
               )}
-              keyExtractor={(item) => item.stationuuid}
+              keyExtractor={(item: any) => item.stationuuid}
             />
             <Modal
               animationType="fade"

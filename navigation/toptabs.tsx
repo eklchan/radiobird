@@ -6,11 +6,16 @@ import { TabBar } from 'react-native-tab-view';
 import News from '../screens/HomeTabScreens/News';
 import Music from '../screens/HomeTabScreens/Music';
 import Sport from '../screens/HomeTabScreens/Sport';
+import { Navigation, JumpTo } from '../interfaces';
 
-const HomeTopTabs = ({ navigation }) => {
+interface props {
+  navigation: Navigation;
+}
+
+const HomeTopTabs = ({ navigation }: props) => {
   const initialLayout = { width: Dimensions.get('window').width };
 
-  const First = ({ jumpTo }) =>
+  const First = ({ jumpTo }: JumpTo) =>
     useMemo(() => <ForYou jumpTo={jumpTo} navigation={navigation} />, [jumpTo]);
 
   const Second = () => useMemo(() => <News />, []);
@@ -34,12 +39,12 @@ const HomeTopTabs = ({ navigation }) => {
     sports: Fourth,
   });
 
-  const renderTabBar = (props) => (
+  const renderTabBar = (props: any) => (
     <TabBar
       {...props}
-      indicatorStyle={{ backgroundColor: 'hsl(226, 0%, 75%)' }}
-      labelStyle={{ color: 'hsl(226, 0%, 98%)' }}
-      style={{ backgroundColor: 'hsl(226, 88%, 67%)' }}
+      indicatorStyle={styles.indicator}
+      labelStyle={styles.label}
+      style={styles.tabBar}
     />
   );
 
@@ -65,6 +70,9 @@ const styles = StyleSheet.create({
   views: {
     backgroundColor: '#ebebeb',
   },
+  indicator: { backgroundColor: 'hsl(226, 0%, 75%)' },
+  label: { color: 'hsl(226, 0%, 98%)' },
+  tabBar: { backgroundColor: 'hsl(226, 88%, 67%)' },
 });
 
 export default HomeTopTabs;

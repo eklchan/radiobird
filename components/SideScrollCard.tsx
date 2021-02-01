@@ -2,9 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
 import { Card } from 'native-base';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Station } from '../interfaces';
 const Logo = require('../assets/radioIcon.png');
 
-const SideScrollCard = ({ station }) => {
+interface props {
+  station: Station;
+}
+
+const SideScrollCard = ({ station }: props) => {
   const [source, setSource] = useState(station.favicon);
 
   useEffect(() => {
@@ -18,7 +23,7 @@ const SideScrollCard = ({ station }) => {
   return (
     <View style={styles.station} key={station.name}>
       <TouchableOpacity style={styles.button} activeOpacity={0.65}>
-        <Card style={{ borderRadius: 17 }}>
+        <Card style={styles.card}>
           <Image
             onError={handleError}
             source={source ? { uri: `${source}` } : Logo}
@@ -71,6 +76,9 @@ const styles = StyleSheet.create({
   faviconImage: {
     height: 120,
     width: 120,
+    borderRadius: 17,
+  },
+  card: {
     borderRadius: 17,
   },
 });

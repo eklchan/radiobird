@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Station } from '../interfaces';
 
 export const getRecents = async () => {
   try {
@@ -10,7 +11,7 @@ export const getRecents = async () => {
   }
 };
 
-export const storeRecents = async (value) => {
+export const storeRecents = async (value: Array<Station>) => {
   try {
     const jsonValue = JSON.stringify(value);
     await AsyncStorage.setItem('recentListens', jsonValue);
@@ -20,10 +21,10 @@ export const storeRecents = async (value) => {
   }
 };
 
-export const addToRecents = async (value) => {
+export const addToRecents = async (value: Station) => {
   let recents = await getRecents();
 
-  const stationIndex = recents.findIndex((alreadyListened) => {
+  const stationIndex = recents.findIndex((alreadyListened: Station) => {
     return alreadyListened.stationuuid === value.stationuuid;
   });
 

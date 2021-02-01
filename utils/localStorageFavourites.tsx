@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Station } from '../interfaces';
 
 export const getFavourites = async () => {
   try {
@@ -10,7 +11,7 @@ export const getFavourites = async () => {
   }
 };
 
-export const storeFavourites = async (value) => {
+export const storeFavourites = async (value: Array<Station>) => {
   try {
     const jsonValue = JSON.stringify(value);
     await AsyncStorage.setItem('favouriteRadios', jsonValue);
@@ -20,10 +21,10 @@ export const storeFavourites = async (value) => {
   }
 };
 
-export const addToFavourites = async (value) => {
+export const addToFavourites = async (value: Station) => {
   let favourites = await getFavourites();
 
-  const stationIndex = favourites.findIndex((alreadyFavourited) => {
+  const stationIndex = favourites.findIndex((alreadyFavourited: Station) => {
     return alreadyFavourited.stationuuid === value.stationuuid;
   });
 
@@ -35,10 +36,10 @@ export const addToFavourites = async (value) => {
   await storeFavourites(favourites);
 };
 
-export const deleteFromFavourites = async (value) => {
+export const deleteFromFavourites = async (value: Station) => {
   let favourites = await getFavourites();
 
-  const stationIndex = favourites.findIndex((alreadyFavourited) => {
+  const stationIndex = favourites.findIndex((alreadyFavourited: Station) => {
     return alreadyFavourited.stationuuid === value.stationuuid;
   });
 
@@ -53,10 +54,10 @@ export const deleteAllFavourties = async () => {
   return resp;
 };
 
-export const favouritedOrNot = async (value) => {
+export const favouritedOrNot = async (value: Station) => {
   let favourites = await getFavourites();
 
-  const stationIndex = favourites.findIndex((alreadyFavourited) => {
+  const stationIndex = favourites.findIndex((alreadyFavourited: Station) => {
     return alreadyFavourited.stationuuid === value.stationuuid;
   });
 

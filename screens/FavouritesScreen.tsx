@@ -21,6 +21,7 @@ import {
 } from '@expo-google-fonts/lato';
 import ListItemCard from '../components/ListItemCard';
 import { useIsFocused } from '@react-navigation/native';
+import { Station } from '../interfaces';
 
 type FavouritesScreenProps = {
   setDeleteModal: Function;
@@ -32,7 +33,7 @@ const FavouritesScreen: FunctionComponent<FavouritesScreenProps> = ({
   setDeleteModal,
 }) => {
   const setStation: Function = useUrlUpdate();
-  const [favouritesArray, setFavouritesArray] = useState([]);
+  const [favouritesArray, setFavouritesArray] = useState<Array<Station>>([]);
   const [loadingState, setLoadingState] = useState(false);
   const isFocused = useIsFocused();
 
@@ -52,7 +53,7 @@ const FavouritesScreen: FunctionComponent<FavouritesScreenProps> = ({
     fetchData();
   }, [isFocused]);
 
-  const handleSetStation = (station: object) => {
+  const handleSetStation = (station: Station) => {
     setStation(station);
   };
 
@@ -68,7 +69,7 @@ const FavouritesScreen: FunctionComponent<FavouritesScreenProps> = ({
     }
   };
 
-  const renderFavouritesList = favouritesArray.map((station, i) => {
+  const renderFavouritesList = favouritesArray.map((station) => {
     return (
       <TouchableOpacity
         key={station.stationuuid}

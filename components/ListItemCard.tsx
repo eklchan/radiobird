@@ -2,17 +2,15 @@ import React, { useEffect, useState, FunctionComponent } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Card } from 'native-base';
+import { Station } from '../interfaces';
 const Logo = require('../assets/radioIcon.png');
 
 type ListItemCardProps = {
-  station: object;
+  station: Station;
   setStation?: Function;
 };
 
-const ListItemCard: FunctionComponent<ListItemCardProps> = ({
-  station,
-  setStation,
-}) => {
+const ListItemCard: FunctionComponent<ListItemCardProps> = ({ station }) => {
   const [source, setSource] = useState(station.favicon);
 
   const handleCardPress = () => {};

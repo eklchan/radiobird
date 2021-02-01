@@ -2,16 +2,17 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Audio } from 'expo-av';
 import 'react-native-console-time-polyfill';
 import { addToRecents } from './utils/localStorageRecents';
+import { Station } from './interfaces';
+import NetInfo from '@react-native-community/netinfo';
 
-const UrlContext = createContext();
-const UrlUpdateContext = createContext();
-const SoundContext = createContext();
-const LoadingAudioContext = createContext();
-const AudioPlayingContext = createContext();
-const HandlePauseContext = createContext();
-const HandlePlayContext = createContext();
-const SleepTimeContext = createContext();
-const SetSleepTimeContext = createContext();
+const UrlContext = createContext<Station | undefined>(undefined);
+const UrlUpdateContext = createContext<Function | undefined>(undefined);
+const LoadingAudioContext = createContext<boolean | undefined>(undefined);
+const AudioPlayingContext = createContext<boolean | undefined>(undefined);
+const HandlePauseContext = createContext<Function | undefined>(undefined);
+const HandlePlayContext = createContext<Function | undefined>(undefined);
+const SleepTimeContext = createContext<number | undefined>(undefined);
+const SetSleepTimeContext = createContext<Function | undefined>(undefined);
 
 export const useUrl = () => {
   return useContext(UrlContext);
@@ -19,10 +20,6 @@ export const useUrl = () => {
 
 export const useUrlUpdate: Function = () => {
   return useContext(UrlUpdateContext);
-};
-
-export const useSoundContext = () => {
-  return useContext(SoundContext);
 };
 
 export const useLoadingContext: Function = () => {
@@ -56,7 +53,7 @@ const initiateAudio = async () => {
 initiateAudio();
 
 export const UrlProvider = ({ children }: any) => {
-  const [station, setStation] = useState();
+  const [station, setStation] = useState<Station | undefined>(undefined);
   const [loadingAudio, setLoadingAudio] = useState(false);
   const [audioPlaying, setAudioPlaying] = useState(false);
   const [sleepTime, setSleepTime] = useState(-1);
@@ -80,6 +77,9 @@ export const UrlProvider = ({ children }: any) => {
   useEffect(() => {
     const startSound = async () => {
       const status = await sound.getStatusAsync();
+      const connectionState = await NetInfo.fetch().then(
+        (state) => state.isConnected,
+      );
 
       const playSound = async () => {
         try {
@@ -89,31 +89,41 @@ export const UrlProvider = ({ children }: any) => {
             staysActiveInBackground: true,
           });
           const res = await sound.loadAsync(
-            { uri: station.url_resolved },
+            { uri: `${station && station.url_resolved}` },
             {},
             false,
           );
-          const play = await sound.playAsync();
-          setLoadingAudio(false);
-          setAudioPlaying(true);
-          addToRecents(station);
+          if (res.isLoaded) {
+            const play = await sound.playAsync();
+            setLoadingAudio(false);
+            if (play.isPlaying) {
+              setAudioPlaying(true);
+              station && addToRecents(station);
+            }
+          } else {
+            setLoadingAudio(false);
+            console.log('UNABLE TO CONNECT');
+          }
         } catch (e) {
           console.log('cannot play the sound file', e);
         }
       };
 
-      if (status.isLoaded && station) {
+      if (status.isLoaded && station && connectionState) {
         await sound.unloadAsync();
         await playSound();
-      } else if (station) {
+      } else if (station && connectionState) {
         await playSound();
+      } else if (!connectionState) {
+        console.log('No Internet');
       }
     };
+
     startSound();
   }, [station]);
 
-  const handleStationChange = (station: object) => {
-    setStation(station);
+  const handleStationChange = (newStation: Station) => {
+    setStation(newStation);
   };
 
   const handlePauseSound = async () => {
@@ -133,21 +143,19 @@ export const UrlProvider = ({ children }: any) => {
   return (
     <UrlContext.Provider value={station}>
       <UrlUpdateContext.Provider value={handleStationChange}>
-        <SoundContext.Provider value={sound}>
-          <LoadingAudioContext.Provider value={loadingAudio}>
-            <AudioPlayingContext.Provider value={audioPlaying}>
-              <HandlePauseContext.Provider value={handlePauseSound}>
-                <HandlePlayContext.Provider value={handlePlaySound}>
-                  <SleepTimeContext.Provider value={sleepTime}>
-                    <SetSleepTimeContext.Provider value={setSleepTime}>
-                      {children}
-                    </SetSleepTimeContext.Provider>
-                  </SleepTimeContext.Provider>
-                </HandlePlayContext.Provider>
-              </HandlePauseContext.Provider>
-            </AudioPlayingContext.Provider>
-          </LoadingAudioContext.Provider>
-        </SoundContext.Provider>
+        <LoadingAudioContext.Provider value={loadingAudio}>
+          <AudioPlayingContext.Provider value={audioPlaying}>
+            <HandlePauseContext.Provider value={handlePauseSound}>
+              <HandlePlayContext.Provider value={handlePlaySound}>
+                <SleepTimeContext.Provider value={sleepTime}>
+                  <SetSleepTimeContext.Provider value={setSleepTime}>
+                    {children}
+                  </SetSleepTimeContext.Provider>
+                </SleepTimeContext.Provider>
+              </HandlePlayContext.Provider>
+            </HandlePauseContext.Provider>
+          </AudioPlayingContext.Provider>
+        </LoadingAudioContext.Provider>
       </UrlUpdateContext.Provider>
     </UrlContext.Provider>
   );
